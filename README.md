@@ -13,4 +13,4 @@ Update in this sequence:
 
 conda environments:
 * "mcvine": latest release
-* "mcvine-<version>": the specific mcvine version
+* "mcvine-{version}": the specific mcvine version
