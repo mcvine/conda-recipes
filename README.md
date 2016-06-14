@@ -8,3 +8,9 @@ Update in this sequence:
 * DANSE dependencies
 * Mantid
 * MCViNE
+
+## Deployments at SNS analysis cluster
+
+conda environments:
+* "mcvine": latest release
+* "mcvine-<version>": the specific mcvine version
