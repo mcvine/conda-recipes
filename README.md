@@ -6,7 +6,7 @@ For any package, first update the release tag, then build conda package.
 
 Update in this sequence:
 * DANSE dependencies
-* Mantid
+* Mantid (should use recipe in mantidproject/conda-recipes if possible)
 * MCViNE
 
 ## Deployments at SNS analysis cluster
