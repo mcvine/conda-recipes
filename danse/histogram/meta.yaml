@@ -1,0 +1,32 @@
+package:
+  name: histogram
+  version: "0.3.1"
+
+source:
+  git_rev: v0.3.1
+  git_url: https://github.com/danse-inelastic/histogram.git
+
+requirements:
+  build:
+    - python
+    - numpy
+    - journal
+    - cmake
+
+  run:
+    - python
+    - numpy
+    - danse.ins
+    - journal
+    - pyre
+    - h5py
+
+test:
+  imports:
+    - histogram
+  
+
+about:
+  home: 
+  license:
+  license_file:
