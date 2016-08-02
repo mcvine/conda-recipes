@@ -1,0 +1,29 @@
+package:
+  name: mcvine-resources
+  version: "1.0.2unstable"
+
+source:
+  git_rev: master
+  git_url: https://github.com/mcvine/resources.git
+
+requirements:
+  build:
+    - cmake
+
+  run:
+    - danse.ins
+
+build:
+  script_env:
+    - CC
+    - CXX
+
+test:
+  imports:
+    - danse.ins
+  
+
+about:
+  home: 
+  license:
+  license_file:
