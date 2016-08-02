@@ -1,9 +1,9 @@
 package:
   name: danse.ins.dsm
-  version: "0.1"
+  version: "0.1.1unstable"
 
 source:
-  git_rev: v0.1
+  git_rev: master
   git_url: https://github.com/danse-inelastic/dsm.git
 
 requirements:

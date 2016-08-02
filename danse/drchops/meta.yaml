@@ -1,9 +1,9 @@
 package:
   name: drchops
-  version: "2.0alpha"
+  version: "2.0unstable"
 
 source:
-  git_rev: v2.0alpha
+  git_rev: 2-alpha
   git_url: https://github.com/danse-inelastic/DrChops.git
 
 requirements:

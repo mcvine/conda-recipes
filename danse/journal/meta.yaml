@@ -1,6 +1,6 @@
 package:
   name: journal
-  version: "nightly"
+  version: "0.8.1unstable"
 
 source:
   git_rev: master
