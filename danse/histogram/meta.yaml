@@ -21,6 +21,11 @@ requirements:
     - pyre
     - h5py
 
+build:
+  script_env:
+    - CC
+    - CXX
+
 test:
   imports:
     - histogram

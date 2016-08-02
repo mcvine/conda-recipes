@@ -14,6 +14,11 @@ requirements:
   run:
     - danse.ins
 
+build:
+  script_env:
+    - CC
+    - CXX
+
 test:
   imports:
     - danse.ins.dsm

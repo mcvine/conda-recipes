@@ -16,6 +16,11 @@ requirements:
     - python
     - danse.ins
 
+build:
+  script_env:
+    - CC
+    - CXX
+
 test:
   imports:
     - journal

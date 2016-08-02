@@ -21,6 +21,11 @@ requirements:
     - histogram
     - pyre
 
+build:
+  script_env:
+    - CC
+    - CXX
+
 test:
   imports:
     - drchops

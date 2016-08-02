@@ -16,6 +16,11 @@ requirements:
     - danse.ins
     - journal
 
+build:
+  script_env:
+    - CC
+    - CXX
+
 test:
   imports:
     - pyre
