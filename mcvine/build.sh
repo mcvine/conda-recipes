@@ -8,4 +8,11 @@ fi
 
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DDEPLOYMENT_PREFIX=$PREFIX .. && make -j $CORES && make -j$CORES reconfigure-to-include-mcstas-components && make -j$CORES wrap-mcstas-components-cmake && make -j$CORES && make install
+cmake -DCONDA_BUILD=TRUE \
+  -DCMAKE_INSTALL_PREFIX=$PREFIX -DDEPLOYMENT_PREFIX=$PREFIX \
+  -DCMAKE_SYSTEM_LIBRARY_PATH=$PREFIX/lib .. \
+  && make -j $CORES \
+  && make -j$CORES reconfigure-to-include-mcstas-components \
+  && make -j$CORES wrap-mcstas-components-cmake \
+  && make -j$CORES \
+  && make install
