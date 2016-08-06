@@ -60,3 +60,13 @@ Finally mcvine
 $ cd ~/scratch2/mcvine/conda-recipes
 $ conda build mcvine-resources mcvine
 ```
+
+## mpi4py
+The mpi4py installed from conda-forge channel does not work.
+Had to the following:
+
+* remove mpi4py, mpich2, and also mcvine (because it depends on mpi4py)
+* load openmpi module: `$ module load openmpi-ccm/1.10.2`
+* build mpi4py from scratch: download, expand, and run `$ python setup.py install`
+* install mcvine by directly pointing to the path of the pkg: `$ conda install ~/conda/miniconda2/conda-bld/linux-64/mcvine-1.1-py27_0.tar.bz2`, which ignore installation of dependencies (otherwise the newly installed mpi4py will be replaced by the conda mpi4py)
+
