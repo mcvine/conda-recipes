@@ -10,7 +10,7 @@ added ~/.use-miniconda2:
 
   module swap PrgEnv-intel PrgEnv-gnu
   module remove gcc
-  module load gcc/4.8.2
+  module load gcc/5.2.0
   export PATH="/global/homes/l/linjiao/conda/miniconda2/bin:$PATH"
 
 logout/login again
@@ -23,8 +23,8 @@ $ conda create -n mcvine python
 $ conda install -n root conda-build
 
 $ # need to do this so that cmake can pick up the correct cc and cxx
-$ export CC=/opt/gcc/4.8.2/bin/gcc
-$ export CXX=/opt/gcc/4.8.2/bin/g++
+$ export CC=/opt/gcc/5.2.0/bin/gcc
+$ export CXX=/opt/gcc/5.2.0/bin/g++
 
 ## Run conda recipes
 
