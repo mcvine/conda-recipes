@@ -1,6 +1,6 @@
 package:
   name: mcvine
-  version: "1.1"
+  version: "1.1.1"
 
 source:
   git_rev: master
@@ -15,7 +15,7 @@ requirements:
     - h5py
     - mpi4py
     - gsl
-    - boost
+    - boost 1.61.0*
     - pyre
     - danse.ins.dsm
     - danse.ins.numpyext
@@ -34,7 +34,7 @@ requirements:
     - h5py
     - mpi4py
     - gsl
-    - boost
+    - boost 1.61.0*
     - pyre
     - danse.ins.dsm
     - danse.ins.numpyext
@@ -44,6 +44,8 @@ requirements:
     - drchops
     - mcvine-resources
     - cmake
+    - scipy
+    - matplotlib
 
 build:
   script_env:
