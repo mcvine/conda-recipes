@@ -44,6 +44,8 @@ requirements:
     - drchops
     - mcvine-resources
     - cmake
+    - scipy
+    - matplotlib
 
 build:
   script_env:
