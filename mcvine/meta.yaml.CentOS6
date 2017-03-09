@@ -48,6 +48,7 @@ requirements:
     - matplotlib
 
 build:
+  string: CentOS6
   script_env:
     - CC
     - CXX
