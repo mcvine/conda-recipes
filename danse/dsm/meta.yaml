@@ -8,10 +8,12 @@ source:
 
 requirements:
   build:
+    - python
     - danse.ins
     - cmake
 
   run:
+    - python
     - danse.ins
 
 build:

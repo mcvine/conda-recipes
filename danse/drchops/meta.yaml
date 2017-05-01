@@ -8,6 +8,7 @@ source:
 
 requirements:
   build:
+    - python
     - numpy
     - danse.ins
     - journal
@@ -15,6 +16,7 @@ requirements:
     - cmake
 
   run:
+    - python
     - numpy
     - danse.ins
     - journal

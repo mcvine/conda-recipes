@@ -9,12 +9,12 @@ source:
 requirements:
   build:
     - python
-    - boost
+    - boost 1.61.*
     - cmake
 
   run:
     - python
-    - boost
+    - boost 1.61.*
     - danse.ins
 
 build:
@@ -24,6 +24,8 @@ build:
 
 test:
   imports:
+    - danse
+    - danse.ins
     - danse.ins.bpext
   
 
