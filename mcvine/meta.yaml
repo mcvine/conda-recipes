@@ -8,7 +8,6 @@ source:
 
 requirements:
   build:
-    - gcc 4.8.*
     - python 2.7.*
     - pyyaml
     - numpy
