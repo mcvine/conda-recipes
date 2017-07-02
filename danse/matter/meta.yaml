@@ -9,19 +9,17 @@ source:
 requirements:
   build:
     - python
-    - numpy
+    - numpy x.x
     - danse.ins
     - cmake
 
   run:
     - python
-    - numpy
+    - numpy x.x
     - danse.ins
 
 build:
   script_env:
-    - CC
-    - CXX
 
 test:
   imports:
