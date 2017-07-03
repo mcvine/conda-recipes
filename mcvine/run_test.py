@@ -11,6 +11,7 @@ $MCVINE_DIR/share/mcvine/tests.
 The tests will run at a separate work directory.
 """
 
+"""
 import os, sys, psutil, subprocess as sp
 
 if len(sys.argv)>1:
@@ -29,3 +30,4 @@ if cores < 1: cores = 1
 
 cmd = '''cmake %s && env CTEST_OUTPUT_ON_FAILURE=1 make test ARGS="-j%s"''' % (testsdir, cores)
 sp.check_call(cmd, shell=True)
+"""
