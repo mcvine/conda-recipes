@@ -1,9 +1,9 @@
 package:
   name: mcvine.phonon
-  version: "dev"
+  version: "0.1.0a3"
 
 source:
-  git_rev: master
+  git_rev: v0.1.0a3
   git_url: https://github.com/mcvine/phonon.git
 
 requirements:
