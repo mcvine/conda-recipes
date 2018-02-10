@@ -1,0 +1,28 @@
+package:
+  name: mcvine.instruments
+  version: "0.1.0a1"
+
+source:
+  git_rev: v0.1.0a1
+  git_url: https://github.com/mcvine/instruments.git
+
+requirements:
+  build:
+    - python
+    - cmake
+    - mcvine 1.3.1a9
+
+  run:
+    - python
+    - mcvine >=1.3.1a9
+
+build:
+
+test:
+  imports:
+    - mcvine.instruments
+
+about:
+  home: 
+  license:
+  license_file:
