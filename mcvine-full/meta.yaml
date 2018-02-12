@@ -8,6 +8,7 @@ requirements:
     - mcvine.instruments
     - mcvine.workflow
     - mcvine.phonon
+    - mantid-framework 3.10
 
 build:
 
