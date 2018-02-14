@@ -12,7 +12,7 @@ PYVER=${PYVER_MAJOR}.${PYVER_MINOR}
 
 mkdir build
 cd build
-cmake \
+cmake  -DCONDA_BUILD=TRUE \
     -DPYTHON_LIBRARY=${PREFIX}/lib/libpython${PYVER}.so \
     -DPYTHON_INCLUDE_DIR=${PREFIX}/include/python${PYVER} \
     -DCMAKE_INSTALL_PREFIX=$PREFIX -DDEPLOYMENT_PREFIX=$PREFIX \
