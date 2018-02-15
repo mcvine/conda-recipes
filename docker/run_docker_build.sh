@@ -58,7 +58,7 @@ conda clean --lock
 conda update conda conda-build
 
 # build
-conda build --python 2.7 ~/conda-recipes/mcvine
+conda build --python 2.7 --numpy 1.13 ~/conda-recipes/mcvine
 
 #
 chown -R ${owner} /build_artefacts
