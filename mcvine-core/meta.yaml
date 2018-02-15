@@ -1,0 +1,64 @@
+package:
+  name: mcvine-core
+  version: "1.3.1a9"
+
+source:
+  git_rev: v1.3.1a9
+  git_url: https://github.com/mcvine/mcvine.git
+
+requirements:
+  build:
+    - python
+    - pyyaml
+    - numpy x.x
+    - psutil
+    - h5py
+    - mpi4py
+    - gsl
+    - boost 1.61.*
+    - pyre
+    - danse.ins.dsm
+    - danse.ins.numpyext
+    - danse.ins.bpext
+    - histogram
+    - danse.ins.matter
+    - drchops
+    - mcvine-resources
+    - cmake
+
+  run:
+    - python
+    - pyyaml
+    - numpy x.x
+    - psutil
+    - h5py
+    - mpi4py
+    - gsl
+    - boost 1.61.*
+    - pyre
+    - danse.ins.dsm
+    - danse.ins.numpyext
+    - danse.ins.bpext
+    - histogram
+    - danse.ins.matter
+    - drchops
+    - mcvine-resources
+    - phonopy
+    - cmake
+    - scipy
+    - matplotlib
+
+build:
+  script_env:
+    - CC
+    - CXX
+
+test:
+  imports:
+    - mcvine
+  
+
+about:
+  home: 
+  license:
+  license_file:
