@@ -1,0 +1,29 @@
+package:
+  name: mcvine.ui
+  version: "0.0.1a1"
+
+source:
+  git_rev: v0.0.1a1
+  git_url: https://github.com/mcvine/ui.git
+
+requirements:
+  build:
+    - python
+    - cmake
+
+  run:
+    - python
+    - numpy
+    - ipywe
+    - mcvine.workflow
+
+build:
+
+test:
+  imports:
+    - mcvine.ui
+
+about:
+  home: 
+  license:
+  license_file:
