@@ -9,12 +9,12 @@ source:
 requirements:
   build:
     - python
-    - boost 1.61.*
+    - boost {{ boost }}
     - cmake
 
   run:
     - python
-    - boost 1.61.*
+    - boost
     - danse.ins
 
 build:
