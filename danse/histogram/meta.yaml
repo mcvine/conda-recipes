@@ -1,21 +1,21 @@
 package:
   name: histogram
-  version: "0.3.2unstable"
+  version: "0.3.3"
 
 source:
-  git_rev: master
+  git_rev: v0.3.3
   git_url: https://github.com/danse-inelastic/histogram.git
 
 requirements:
   build:
     - python
-    - numpy x.x
+    - numpy           {{ numpy }}
     - journal
     - cmake
 
   run:
     - python
-    - numpy x.x
+    - numpy
     - danse.ins
     - journal
     - pyre
