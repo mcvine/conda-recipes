@@ -1,21 +1,21 @@
 package:
   name: danse.ins.matter
-  version: "0.9.1unstable"
+  version: "0.9.2"
 
 source:
-  git_rev: master
+  git_rev: v0.9.2
   git_url: https://github.com/danse-inelastic/matter.git
 
 requirements:
   build:
     - python
-    - numpy x.x
+    - numpy
     - danse.ins
     - cmake
 
   run:
     - python
-    - numpy x.x
+    - numpy
     - danse.ins
 
 build:
