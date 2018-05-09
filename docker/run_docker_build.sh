@@ -16,6 +16,7 @@ config=$(cat <<CONDARC
 channels:
  - mcvine
  - mantid
+ - diffpy
  - conda-forge
  - defaults
 
