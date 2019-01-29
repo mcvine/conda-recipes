@@ -3,6 +3,7 @@ python:
 boost:
   - 1.61
   - 1.66
+  - 1.69
 
 pin_run_as_build:
   boost:
