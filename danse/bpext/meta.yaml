@@ -9,11 +9,13 @@ source:
 requirements:
   build:
     - python
-    - boost {{ boost }}
+    - numpy     {{ numpy }}
+    - boost     {{ boost }}
     - cmake
 
   run:
     - python
+    - numpy
     - boost
     - danse.ins
 
