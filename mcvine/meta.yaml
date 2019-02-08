@@ -1,14 +1,14 @@
 package:
   name: mcvine
-  version: "1.3.2unstable"
+  version: "1.3.2"
 
 requirements:
   run:
-    - mcvine-core
+    - mcvine-core      1.3.2
     - mcvine.instruments
     - mcvine.workflow
     - mcvine.phonon
-    - mantid-framework 3.10
+    - mantid-framework 3.13
 
 build:
 
