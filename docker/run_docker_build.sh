@@ -51,6 +51,7 @@ cat << EOF | docker run -i \
 # Only copy the framework
 mkdir -p ~/conda-recipes
 cp -r /staged-recipes/mcvine-core ~/conda-recipes/mcvine-core
+cp -r /staged-recipes/mcvine ~/conda-recipes/mcvine
 
 echo "$config" > ~/.condarc
 
@@ -60,7 +61,9 @@ conda clean --lock
 conda update conda conda-build
 
 # build
-conda build --python 2.7 --numpy 1.13 ~/conda-recipes/mcvine-core
+# conda build --python 2.7 --numpy 1.13 ~/conda-recipes/mcvine-core
+conda build ~/conda-recipes/mcvine-core
+conda build ~/conda-recipes/mcvine
 
 #
 chown -R ${owner} /build_artefacts
