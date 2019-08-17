@@ -6,6 +6,19 @@ if ((CORES < 1)); then
     CORES = 1;
 fi
 
+PYVER_MAJOR=`python -c "import sys; print sys.version_info[0]"`
+PYVER_MINOR=`python -c "import sys; print sys.version_info[1]"`
+PYVER=${PYVER_MAJOR}.${PYVER_MINOR}
+
 mkdir build
 cd build
-cmake -DCONDA_BUILD=TRUE -DCMAKE_INSTALL_PREFIX=$PREFIX -DDEPLOYMENT_PREFIX=$PREFIX -DBOOST_INCLUDEDIR=$PREFIX/include -DBOOST_LIBRARYDIR=$PREFIX/lib .. && make -j $CORES && make install
+cmake \
+    -DCONDA_BUILD=TRUE \
+    -DDEPLOYMENT_PREFIX=$PREFIX \
+    -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DCMAKE_SYSTEM_LIBRARY_PATH=$PREFIX/lib \
+    -DPYTHON_LIBRARY=${PREFIX}/lib/libpython${PYVER}.so \
+    -DPYTHON_INCLUDE_DIR=${PREFIX}/include/python${PYVER} \
+    -DBOOST_ROOT=$PREFIX \
+    .. \
+    && make -j $CORES && make install

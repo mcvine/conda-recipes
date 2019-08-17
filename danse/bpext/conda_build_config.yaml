@@ -1,9 +1,20 @@
 python:
   - 2.7
+numpy:
+  - 1.13.0
+  - 1.14.0
+  - 1.16.0
 boost:
   - 1.61
   - 1.66
+  - 1.69
+
+zip_keys:
+  - numpy
+  - boost
 
 pin_run_as_build:
+  numpy:
+    max_pin: x.x
   boost:
     max_pin: x.x

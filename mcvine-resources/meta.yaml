@@ -1,6 +1,6 @@
 package:
   name: mcvine-resources
-  version: "1.0.2unstable"
+  version: "1.0.3"
 
 source:
   git_rev: master
