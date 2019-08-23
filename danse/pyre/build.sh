@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 
-let CORES=`grep -c ^processor /proc/cpuinfo`
-let CORES-=1
-if ((CORES < 1)); then
-    CORES = 1;
-fi
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)
+	let CORES=`grep -c ^processor /proc/cpuinfo`
+	;;
+    Darwin*)
+	let CORES=`sysctl -n hw.ncpu`
+	;;
+    *)  echo "${unameOut} unsupported"; exit 1
+esac
 
 mkdir build
 cd build
