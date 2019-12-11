@@ -15,6 +15,7 @@ requirements:
     - python
 
 build:
+  noarch: python
   script_env:
     - CC
     - CXX
