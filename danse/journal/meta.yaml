@@ -8,6 +8,7 @@ source:
 
 requirements:
   build:
+    - {{ compiler('cxx') }}  # [linux]
     - python
     - danse.ins
     - cmake
