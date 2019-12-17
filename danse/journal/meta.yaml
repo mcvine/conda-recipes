@@ -1,17 +1,19 @@
 package:
   name: journal
-  version: "0.8.2"
+  version: "0.8.3"
 
 source:
-  git_rev: v0.8.2
+  git_rev: v0.8.3
   git_url: https://github.com/danse-inelastic/journal.git
 
 requirements:
   build:
     - {{ compiler('cxx') }}  # [linux]
+    - cmake
+
+  host:
     - python
     - danse.ins
-    - cmake
 
   run:
     - python
