@@ -1,9 +1,15 @@
 python:
   - 2.7
+  - 3.7
+  - 3.8
 numpy:
-  - 1.13.0
-  - 1.14.0
   - 1.16.0
+  - 1.19.0
+  - 1.19.0
+
+zip_keys:
+  - python
+  - numpy
 
 pin_run_as_build:
   numpy:
