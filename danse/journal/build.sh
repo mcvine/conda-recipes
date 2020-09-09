@@ -16,13 +16,26 @@ PYVER_MINOR=`python -c "from __future__ import print_function; import sys; print
 PYVER=${PYVER_MAJOR}.${PYVER_MINOR}
 echo $PYVER
 
-# -DPYTHON_INCLUDE_DIR=${PREFIX}/include/python${PYVER} \
-#    -DPYTHON_LIBRARY=${PREFIX}/lib/libpython${PYVER}.${SHAREDLIB} \
+# 09062020: changed to match that of pyre conda recipe. not tested yet
 mkdir build
 cd build
 cmake \
     -DCONDA_BUILD=TRUE \
+    -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
-    -DCMAKE_INSTALL_PREFIX=$PREFIX -DDEPLOYMENT_PREFIX=$PREFIX -DCMAKE_SYSTEM_LIBRARY_PATH=$PREFIX/lib \
+    -DDEPLOYMENT_PREFIX=$PREFIX \
+    -DCMAKE_PREFIX_PATH=$PREFIX \
+    -DCMAKE_SYSTEM_LIBRARY_PATH=$PREFIX/lib \
+    -DPYTHON_INCLUDE_DIR=${PREFIX}/include/python${PYVER} \
+    -DPYTHON_LIBRARY=${PREFIX}/lib/libpython${PYVER}.${SHAREDLIB} \
     .. \
-    && make && make install
+    && make -j $CORES && make install
+
+# -DPYTHON_INCLUDE_DIR=${PREFIX}/include/python${PYVER} \
+#    -DPYTHON_LIBRARY=${PREFIX}/lib/libpython${PYVER}.${SHAREDLIB} \
+#cmake \
+#    -DCMAKE_SKIP_INSTALL_RPATH=ON \
+#    -DCONDA_BUILD=TRUE \
+#    -DCMAKE_INSTALL_PREFIX=$PREFIX -DDEPLOYMENT_PREFIX=$PREFIX -DCMAKE_SYSTEM_LIBRARY_PATH=$PREFIX/lib \
+#    .. \
+#    && make && make install
