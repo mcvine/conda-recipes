@@ -16,5 +16,3 @@ cmake \
     -DCMAKE_SYSTEM_LIBRARY_PATH=$PREFIX/lib \
     .. \
     && make && make install
-
-

@@ -3,11 +3,11 @@
 unameOut="$(uname -s)"
 case "${unameOut}" in
     Linux*)
-	SHAREDLIB=so
-	;;
+	      SHAREDLIB=so
+	      ;;
     Darwin*)
-	SHAREDLIB=dylib
-	;;
+	      SHAREDLIB=dylib
+	      ;;
     *)  echo "${unameOut} unsupported"; exit 1
 esac
 
