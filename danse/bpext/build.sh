@@ -26,5 +26,5 @@ cmake \
     -DPYTHON_INCLUDE_DIR=${PY_INCLUDE_DIR} \
     -DPYTHON_LIBRARY=${PY_SHAREDLIB} \
     .. \
-    && make -j $CORES && make install
+    && make -j $CORES VERBOSE=1 && make install
 
