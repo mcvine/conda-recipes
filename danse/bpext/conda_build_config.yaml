@@ -1,15 +1,15 @@
 python:
   - 2.7
+  - 3.8
 numpy:
-  - 1.13.0
-  - 1.14.0
   - 1.16.0
+  - 1.19.0
 boost:
-  - 1.61
-  - 1.66
   - 1.69
+  - 1.73
 
 zip_keys:
+  - python
   - numpy
   - boost
 

@@ -1,14 +1,14 @@
 package:
   name: drchops
-  version: "2.0.2"
+  version: "2.0.3"
 
 source:
-  git_rev: v2.0.2
+  git_rev: v2.0.3
   git_url: https://github.com/danse-inelastic/DrChops.git
 
 requirements:
   build:
-    - {{ compiler('cxx') }}  # [linux]
+    - {{ compiler('cxx') }}        7 # [linux]
     - cmake
   host:
     - python
