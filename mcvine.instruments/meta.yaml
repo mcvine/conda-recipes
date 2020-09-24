@@ -1,24 +1,27 @@
 package:
   name: mcvine.instruments
-  version: "0.1.0a7"
+  version: "0.1.1"
 
 source:
-  git_rev: v0.1.0a7
+  git_rev: 0.1.1
   git_url: https://github.com/mcvine/instruments.git
 
 requirements:
   build:
-    - python
+    - {{ compiler('cxx') }}    7                # [linux]
     - cmake
-    - mcvine-core
+
+  host:
+    - python
 
   run:
     - python
-    - mcvine-resources >=1.0.3
-    - mcvine-core >=1.3.2a7
-    - mantid2mcvine
+    - mcvine-resources >=1.0.5
+    - mcvine-core >=1.3.5
+    - mantid2mcvine >=0.1.1
 
 build:
+  noarch: python
 
 test:
   imports:
