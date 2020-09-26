@@ -15,7 +15,7 @@ requirements:
 
   run:
     - python
-    - mcvine-core >=1.3.5
+    - mcvine-core >=1.4
     - mcvine.instruments >=0.1.1
 
 build:
