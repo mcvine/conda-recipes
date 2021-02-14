@@ -1,9 +1,9 @@
 package:
   name: mcvine-resources
-  version: "1.0.3"
+  version: "1.0.5"
 
 source:
-  git_rev: master
+  git_rev: v1.0.5
   git_url: https://github.com/mcvine/resources.git
 
 requirements:
@@ -15,6 +15,7 @@ requirements:
     - danse.ins
 
 build:
+  noarch: python
   script_env:
     - CC
     - CXX
