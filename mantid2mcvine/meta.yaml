@@ -1,9 +1,9 @@
 package:
   name: mantid2mcvine
-  version: "0.1.1"
+  version: "0.1.2"
 
 source:
-  git_rev: v0.1.1
+  git_rev: v0.1.2
   git_url: https://github.com/mcvine/mantid2mcvine.git
 
 requirements:
@@ -12,11 +12,12 @@ requirements:
 
   run:
     - python
-    - mcvine-core           >=1.4
-    - mantid-framework      4.0.0
+    - mcvine-core           >=1.4.1
+    - mantid-framework      5
 
 build:
   noarch: python
+  string:
   script_env:
 
 test:
