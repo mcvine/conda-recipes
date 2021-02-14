@@ -1,9 +1,9 @@
 package:
   name: mcvine.instruments
-  version: "0.1.1"
+  version: "0.1.2"
 
 source:
-  git_rev: v0.1.1
+  git_rev: v0.1.2
   git_url: https://github.com/mcvine/instruments.git
 
 requirements:
@@ -17,8 +17,8 @@ requirements:
   run:
     - python
     - mcvine-resources >=1.0.5
-    - mcvine-core >=1.4
-    - mantid2mcvine >=0.1.1
+    - mcvine-core >=1.4.1
+    - mantid2mcvine >=0.1.2
 
 build:
   noarch: python
