@@ -1,9 +1,9 @@
 package:
   name: mcvine.workflow
-  version: "0.1.1"
+  version: "0.1.2"
 
 source:
-  git_rev: v0.1.1
+  git_rev: v0.1.2
   git_url: https://github.com/mcvine/workflow.git
 
 requirements:
@@ -15,8 +15,8 @@ requirements:
 
   run:
     - python
-    - mcvine-core >=1.4
-    - mcvine.instruments >=0.1.1
+    - mcvine-core >=1.4.1
+    - mcvine.instruments >=0.1.2
 
 build:
   noarch: python
