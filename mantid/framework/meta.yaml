@@ -1,5 +1,5 @@
-{% set version = "5.1.20201125.2323" %}
-{% set git_rev = "f00b325940c0f7844d650607ff5fea52c23a4462" %}
+{% set version = "6.1.0" %}
+{% set git_rev = "v6.1.0" %}
 
 package:
   name: mantid-framework
@@ -11,6 +11,7 @@ source:
 
 requirements:
   build:
+    - _openmp_mutex {{ _openmp_mutex }} [linux64]
     - boost {{ boost }} 
     - cmake
     - eigen
@@ -28,24 +29,30 @@ requirements:
     - openblas
     - openssl
     - pkg-config
-    - poco 1.10
+    - poco {{ poco }}
     - python {{ python }}
-    - tbb-devel 2020.3
+    - tbb-devel {{ tbb }}
+    - pre-commit
 
   run:
+    - _openmp_mutex {{ _openmp_mutex }} [linux64]
     - boost {{ boost }}
     - h5py
     - librdkafka
     - nexus
     - numpy
     - openblas
-    - poco
+    - poco {{ poco }}
     - python
     - python-dateutil
     - pyyaml
     - scipy
     - six
-    - tbb
+    - tbb {{ tbb }}
+    - gsl
+    - jsoncpp
+    - muparser
+    - mkl
 
 build:
 
