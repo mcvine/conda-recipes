@@ -4,13 +4,12 @@ python:
 
 numpy:
   - 1.20
-
+gsl:
+  - 2.6
 boost:
   - 1.71
-  
 poco:
   - 1.10
-
 tbb:
   - 2020.3
 

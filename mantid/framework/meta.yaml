@@ -15,7 +15,7 @@ requirements:
     - boost {{ boost }} 
     - cmake
     - eigen
-    - gsl
+    - gsl  {{ gsl }}
     - gxx_linux-64 7.3.* [linux64]
     - h5py
     - hdf4
@@ -49,7 +49,7 @@ requirements:
     - scipy
     - six
     - tbb {{ tbb }}
-    - gsl
+    - gsl  {{ gsl }}
     - jsoncpp
     - muparser
     - mkl
