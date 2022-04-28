@@ -1,31 +1,29 @@
 #!/usr/bin/env bash
-
 set -ex
 
 mkdir build
 cd build
 
 cmake \
-  -G Ninja \
-  -DUSE_SYSTEM_EIGEN=ON \
-  -DUSE_JEMALLOC=OFF \
-  -DENABLE_OPENGL=OFF \
+  ${CMAKE_ARGS} \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_PREFIX_PATH=$PREFIX \
+  -DHDF5_ROOT=$PREFIX \
+  -DOpenSSL_ROOT=$PREFIX \
+  -DCMAKE_FIND_FRAMEWORK=LAST \
   -DENABLE_DOCS=OFF \
-  -DENABLE_MANTIDPLOT=FALSE \
-  -DENABLE_WORKBENCH=FALSE \
-  -DENABLE_OPENCASCADE=FALSE \
-  -DPython_EXECUTABLE="$CONDA_PREFIX/bin/python" \
-  -DCMAKE_PREFIX_PATH=$CONDA_PREFIX \
-  -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
-  -DCMAKE_SKIP_INSTALL_RPATH=ON \
-  ..
+  -DUSE_SYSTEM_EIGEN=ON \
+  -DWORKBENCH_SITE_PACKAGES=$SP_DIR \
+  -DENABLE_PRECOMMIT=OFF \
+  -DCONDA_BUILD=True \
+  -DCONDA_ENV=True \
+  -DUSE_PYTHON_DYNAMIC_LIB=OFF \
+  -DMANTID_FRAMEWORK_LIB=BUILD \
+  -DMANTID_QT_LIB=OFF \
+  -DCPACK_PACKAGE_SUFFIX="" \
+  -DENABLE_WORKBENCH=OFF \
+  -GNinja \
+  ../
 
-cmake --build .
-cmake --build . --target install
-
-# move mantid
-python_site_pkg_path=`python -c "from __future__ import print_function; import h5py, os; opd=os.path.dirname; print(opd(opd(h5py.__file__)))"`
-echo $python_site_pkg_path
-
-mv ${CONDA_PREFIX}/lib/mantid $python_site_pkg_path/
-mv ${CONDA_PREFIX}/lib/mantid-*-py*.egg-info $python_site_pkg_path/
+ninja
+ninja install
