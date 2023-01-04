@@ -1,9 +1,9 @@
 package:
   name: mcvine-core
-  version: "1.4.5"
+  version: "1.4.6"
 
 source:
-  git_rev: v1.4.5
+  git_rev: v1.4.6
   git_url: https://github.com/mcvine/mcvine.git
 
 requirements:
@@ -61,9 +61,8 @@ build:
 test:
   imports:
     - mcvine
-  
 
 about:
-  home: 
+  home:
   license:
   license_file:
