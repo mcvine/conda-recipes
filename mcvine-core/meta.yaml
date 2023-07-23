@@ -1,9 +1,9 @@
 package:
   name: mcvine-core
-  version: "1.4.7"
+  version: "1.4.8"
 
 source:
-  git_rev: v1.4.7
+  git_rev: v1.4.8
   git_url: https://github.com/mcvine/mcvine.git
 
 requirements:
@@ -19,6 +19,7 @@ requirements:
     - mpi4py
     - gsl                      {{ gsl }}
     - boost                    {{ boost }}
+    - mcpl
     - pyre
     - danse.ins.dsm
     - danse.ins.numpyext       {{ numpyext }}
@@ -40,6 +41,7 @@ requirements:
     - mpi4py
     - gsl
     - boost
+    - mcpl
     - pyre
     - danse.ins.dsm
     - danse.ins.numpyext
