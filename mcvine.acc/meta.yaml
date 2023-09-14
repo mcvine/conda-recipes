@@ -1,9 +1,10 @@
 package:
   name: mcvine.acc
-  version: "{{ load_setup_py_data().get('version')}}"
+  version: "v0.1.0.rc1"
+#  version: {{ GIT_DESCRIBE_TAG }}
 
 source:
-  git_rev: main
+  git_rev: v0.1.0_rc1
   git_url: https://github.com/mcvine/acc.git
 
 requirements:
@@ -17,24 +18,24 @@ requirements:
   run:
     - python
     - mcvine-core           >=1.4.7
-    - numba
+    - numba                 ==0.53.1
     - h5py
 
 build:
   noarch: python
-  string:
-  script_env:
 
 test:
   requires:
     - pytest
   source_files:
+    - .github/
     - tests/
   imports:
     - mcni
     - mcvine
     - mcvine.acc
   commands:
+    - python .github/workflows/patch_numba.py
     - pytest tests/
 
 about:
