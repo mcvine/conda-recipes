@@ -1,6 +1,6 @@
 package:
   name: mcvine.acc
-  version: "v0.1.0.rc1"
+  version: "0.1.0.rc1"
 #  version: {{ GIT_DESCRIBE_TAG }}
 
 source:
