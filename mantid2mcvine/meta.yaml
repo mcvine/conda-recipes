@@ -1,6 +1,6 @@
 package:
   name: mantid2mcvine
-  version: "0.1.4"
+  version: "0.1.4.2"
 
 source:
   git_rev: v0.1.4
@@ -11,9 +11,9 @@ requirements:
     - python
 
   run:
-    - python
+    - python                >=3.10
     - mcvine-core           >=1.4.5
-    - mantid-framework      6
+    - mantid                >=6.4
 
 build:
   noarch: python
