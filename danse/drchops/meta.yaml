@@ -22,7 +22,7 @@ requirements:
     - danse.ins
     - journal
     - histogram
-    - pyre
+    - pyre =0.8.3
 
 build:
   script_env:

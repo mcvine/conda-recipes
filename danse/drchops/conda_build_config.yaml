@@ -4,7 +4,7 @@ python:
 numpy:
   - 1.20.0
 histogram:
-  - 0.3.9
+  - 0.4
 
 pin_run_as_build:
   numpy:
