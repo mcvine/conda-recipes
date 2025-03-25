@@ -1,0 +1,35 @@
+name: conda-recipe
+channels:
+  - neutrons/label/rc
+  - neutrons/label/main
+  - mcvine
+  - conda-forge
+dependencies:
+  - python=3.10
+  - anaconda-client
+  - boa
+  - libmamba
+  - libarchive
+  - conda-build
+  - conda-verify
+  - gxx_linux-64
+  - python-build
+  - numpy
+  - danse.ins
+  - journal
+  - histogram=0.4.2
+  - pyre = 0.8.3
+  - notebook<7.0.0
+  - mcpl
+  - ipympl
+  - ipywidgets
+  - ipywe = 0.1.3a1
+  #- numba = 0.53.1
+  #- cudatoolkit = 11.2.2
+# channels:
+#   - neutrons/label/rc
+#   - mcvine
+#   - mantid
+#   - conda-forge
+#   - defaults
+#CHANNELS="--channel neutrons/label/rc --channel mcvine --channel mantid --channel conda-forge"

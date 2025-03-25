@@ -14,7 +14,8 @@ requirements:
   run:
     - python >=3.7
     - numpy
-    - ipywe
+    - notebook<7.0.0
+    - ipywe==0.1.3a1
     - mcvine-core >=1.4.1
     - mcvine.workflow >=0.1.2
 
