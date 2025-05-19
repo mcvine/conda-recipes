@@ -32,6 +32,7 @@ cmake \
     -DCMAKE_SYSTEM_LIBRARY_PATH=$PREFIX/lib \
     -DPYTHON_INCLUDE_DIR=${PY_INCLUDE_DIR} \
     -DPYTHON_LIBRARY=${PY_SHAREDLIB} \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     .. \
     && make && make install
 

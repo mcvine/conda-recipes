@@ -11,11 +11,7 @@ numpyext:
 bpext:
   - 0.1.4
 histogram:
-<<<<<<< HEAD
   - 0.4.2
-=======
-  - 0.4.*
->>>>>>> 4f68073 (drchops, histogram, matter, mantid framework and obsolete removed, mcvine code and ui updated, yaml environments)
 pyre:
   - 0.8
   

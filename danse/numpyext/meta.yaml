@@ -16,8 +16,8 @@ requirements:
     - numpy     {{ numpy }}
 
   run:
-    - python
-    - numpy
+    - python     {{ python }}
+    - numpy     {{ numpy }}
     - danse.ins
 
 build:
