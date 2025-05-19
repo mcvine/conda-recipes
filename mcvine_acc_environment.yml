@@ -1,11 +1,9 @@
-name: conda-recipe
+name: conda-recipe-acc
 channels:
-  - neutrons/label/rc
-  - neutrons/label/main
   - mcvine
   - conda-forge
 dependencies:
-  - python=3.10
+  - python
   - anaconda-client
   - boa
   - libmamba
@@ -24,12 +22,5 @@ dependencies:
   - ipympl
   - ipywidgets
   - ipywe = 0.1.3a1
-  #- numba = 0.53.1
-  #- cudatoolkit = 11.2.2
-# channels:
-#   - neutrons/label/rc
-#   - mcvine
-#   - mantid
-#   - conda-forge
-#   - defaults
-#CHANNELS="--channel neutrons/label/rc --channel mcvine --channel mantid --channel conda-forge"
+  - numba = 0.53.1
+  - cudatoolkit = 11.2.2
