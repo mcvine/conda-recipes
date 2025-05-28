@@ -24,6 +24,7 @@ cmake -DCONDA_BUILD=TRUE \
     -DPYTHON_LIBRARY=${PY_SHAREDLIB} \
     -DCMAKE_PREFIX_PATH=$PREFIX \
     -DCMAKE_SYSTEM_LIBRARY_PATH=$PREFIX/lib \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     .. \
   && make -j$CORES VERBOSE=1 \
   && make -j$CORES reconfigure-to-include-mcstas-components \

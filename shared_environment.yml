@@ -1,0 +1,39 @@
+
+name: conda-recipe
+channels:
+  - neutrons
+  - mcvine
+  - mantid-ornl/label/rc
+  - conda-forge
+dependencies:
+  - anaconda-client
+  - boa
+  - check-wheel-contents
+  - conda-build
+  - conda-verify
+  - numpy = 1.*
+  - python=3.10
+  - python_abi
+  - mantid>6.9.1
+  - jupyter
+  - pillow
+  - scipy
+  - traitlets
+  - boost
+  - cmake
+  - diffpy.Structure
+  - histogram
+  - gsl
+  - cmake==3.31.6 # this is needed
+  - gcc_linux-64 =7.*
+  - gxx_linux-64
+  - h5py
+  - libgcc-ng
+  - libstdcxx-ng
+  - matplotlib
+  - mcpl
+  - mpi4py
+  - periodictable
+  - pip
+  - pip:
+    - ipywe == 0.1.3a1
