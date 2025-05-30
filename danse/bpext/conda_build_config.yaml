@@ -3,7 +3,7 @@ python:
 numpy:
   - 1.24.*
 boost:
-  - 1.78
+  - 1.84
 
 zip_keys:
   - python

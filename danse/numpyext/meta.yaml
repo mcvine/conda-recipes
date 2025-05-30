@@ -1,3 +1,5 @@
+{% set build_number = "1" %}
+
 package:
   name: danse.ins.numpyext
   version: "0.1.3"
@@ -16,16 +18,16 @@ requirements:
     - numpy     {{ numpy }}
 
   run:
-    - python
-    - numpy
+    - python     {{ python }}
+    - numpy     {{ numpy }}
     - danse.ins
 
 build:
   script_env:
     - CC
     - CXX
-  string:
-
+  number: {{ build_number }}
+  
 test:
   imports:
     - danse.ins.numpyext

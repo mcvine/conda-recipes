@@ -25,6 +25,7 @@ cmake \
     -DBOOST_ROOT=$PREFIX \
     -DPYTHON_INCLUDE_DIR=${PY_INCLUDE_DIR} \
     -DPYTHON_LIBRARY=${PY_SHAREDLIB} \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     .. \
     && make -j $CORES VERBOSE=1 && make install
 

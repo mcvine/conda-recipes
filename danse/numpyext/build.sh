@@ -19,5 +19,6 @@ cmake \
     -DDEPLOYMENT_PREFIX=$PREFIX \
     -DCMAKE_PREFIX_PATH=$PREFIX \
     -DCMAKE_SYSTEM_LIBRARY_PATH=$PREFIX/lib \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     .. \
     && make && make install
