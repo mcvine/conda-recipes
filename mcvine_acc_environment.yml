@@ -3,7 +3,7 @@ channels:
   - mcvine
   - conda-forge
 dependencies:
-  - python
+  - python=3.9
   - anaconda-client
   - boa
   - libmamba
