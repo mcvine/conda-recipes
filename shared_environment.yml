@@ -39,4 +39,3 @@ dependencies:
   - pip
   - pip:
     - ipywe == 0.1.3a1
-
