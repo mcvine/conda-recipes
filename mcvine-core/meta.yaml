@@ -1,9 +1,9 @@
 package:
   name: mcvine-core
-  version: "1.5.0rc2"
+  version: "1.5.1rc1"
 
 source:
-  git_rev: v1.5.0rc2
+  git_rev: v1.5.1rc1
   git_url: https://github.com/mcvine/mcvine.git
 
 requirements:
@@ -25,7 +25,7 @@ requirements:
     - danse.ins.numpyext       {{ numpyext }}
     - danse.ins.bpext          {{ bpext }}
     - histogram                {{ histogram }}
-    - diffpy.Structure
+    - diffpy.Structure         {{ structure }}
     - periodictable
     - mcvine-resources
 
@@ -46,7 +46,7 @@ requirements:
     - danse.ins.numpyext
     - danse.ins.bpext
     - histogram
-    - diffpy.Structure
+    - diffpy.Structure         {{ structure }}
     - periodictable
     - mcvine-resources
     - phonopy

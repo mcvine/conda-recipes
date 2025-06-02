@@ -1,14 +1,14 @@
 package:
   name: mcvine
-  version: "1.4.5.2"
+  version: "1.4.6rc1"
 
 requirements:
   run:
-    - mcvine-core               >=1.4.5
+    - mcvine-core               >=1.5.1
     - mcvine.instruments
     - mcvine.workflow
     - mcvine.phonon
-    - mantid                    >=6.4
+    - mantid                    >=6.11
 
 build:
   noarch: python
