@@ -4,7 +4,7 @@ package:
 
 requirements:
   run:
-    - mcvine-core               >=1.5.1
+    - mcvine-core               >=1.5.1rc1
     - mcvine.instruments
     - mcvine.workflow
     - mcvine.phonon

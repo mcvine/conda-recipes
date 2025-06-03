@@ -18,7 +18,7 @@ requirements:
     - h5py
     - mpi4py
     - gsl                      {{ gsl }}
-    - boost                    {{ boost }}
+    - boost                    
     - mcpl
     - pyre
     - danse.ins.dsm
