@@ -1,9 +1,10 @@
 package:
   name: danse.ins.bpext
-  version: "0.1.4"
+  version: "0.1.5rc1"
 
 source:
-  git_rev: v0.1.4
+  # Due to lack of access rights to the bpext repo and no change in the source code, we point directly to a specific commit (head of master - v0.1.4)
+  git_rev: 825e133ed13380b42e442b31fbb6a81da3849fff
   git_url: https://github.com/danse-inelastic/bpext.git
 
 requirements:

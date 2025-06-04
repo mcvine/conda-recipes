@@ -2,6 +2,8 @@
 name: conda-recipe
 channels:
   - neutrons
+  - mantid
+  - mcvine/label/rc
   - mcvine
   - mantid-ornl/label/rc
   - conda-forge
@@ -14,14 +16,14 @@ dependencies:
   - numpy = 1.*
   - python=3.10
   - python_abi
-  - mantid>6.9.1
+  - mantid =6.11
   - jupyter
   - pillow
   - scipy
   - traitlets
   - boost
   - cmake
-  - diffpy.Structure
+  - diffpy.Structure=3.0.1
   - histogram
   - gsl
   - cmake==3.31.6 # this is needed
