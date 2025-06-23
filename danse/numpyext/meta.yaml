@@ -2,7 +2,7 @@
 
 package:
   name: danse.ins.numpyext
-  version: "0.1.4rc1"
+  version: "0.1.4"
 
 source:
   # Due to lack of access rights to the numpyext repo and no change in the source code, we point directly to a specific commit (head of master - v0.1.3)
