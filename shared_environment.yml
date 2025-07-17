@@ -27,6 +27,7 @@ dependencies:
   - histogram
   - gsl
   - cmake==3.31.6 # this is needed
+  - libgcc=15.1.0=h767d61c_2
   - gcc_linux-64 =7.*
   - gxx_linux-64
   - h5py

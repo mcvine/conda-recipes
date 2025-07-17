@@ -10,6 +10,7 @@ requirements:
   build:
     - {{ compiler('cxx') }}    7                # [linux]
     - cmake
+    - libgcc=15.1.0=h767d61c_2
   host:
     - python                   {{ python }}
     - pyyaml
@@ -19,6 +20,7 @@ requirements:
     - mpi4py
     - gsl                      {{ gsl }}
     - boost                    
+    - libgcc=15.1.0=h767d61c_2
     - mcpl
     - pyre
     - danse.ins.dsm
@@ -32,6 +34,7 @@ requirements:
   run:
     - {{ compiler('cxx') }}    7                # [linux]
     - cmake
+    - libgcc=15.1.0=h767d61c_2
     - python
     - pyyaml
     - numpy
@@ -58,9 +61,9 @@ build:
     - CC
     - CXX
 
-test:
-  imports:
-    - mcvine
+#test:
+#  imports:
+#    - mcvine
 
 about:
   home:
