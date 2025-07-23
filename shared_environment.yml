@@ -22,7 +22,6 @@ dependencies:
   - scipy
   - traitlets
   - boost
-  - cmake
   - diffpy.Structure=3.0.1
   - histogram
   - gsl
