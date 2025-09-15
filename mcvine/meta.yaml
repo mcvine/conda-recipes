@@ -1,10 +1,10 @@
 package:
   name: mcvine
-  version: "1.4.6"
+  version: "1.4.7rc1"
 
 requirements:
   run:
-    - mcvine-core               >=1.5.1
+    - mcvine-core               >=1.5.2rc1
     - mcvine.instruments
     - mcvine.workflow
     - mcvine.phonon
