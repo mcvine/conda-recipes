@@ -1,9 +1,9 @@
 package:
   name: mcvine-core
-  version: "1.5.2rc1"
+  version: "1.5.2rc3"
 
 source:
-  git_rev: v1.5.2rc1
+  git_rev: v1.5.2rc3
   git_url: https://github.com/mcvine/mcvine.git
 
 requirements:
@@ -17,7 +17,7 @@ requirements:
     - psutil
     - h5py
     - mpi4py                   
-    - openmpi                      
+    - openmpi                  {{ openmpi }}                      
     - gsl                      {{ gsl }}
     - boost                    
     - mcpl
@@ -39,7 +39,7 @@ requirements:
     - psutil
     - h5py
     - mpi4py
-    - openmpi                                     
+    - openmpi                  {{ openmpi }}                      
     - gsl                      {{ gsl }}
     - boost
     - mcpl

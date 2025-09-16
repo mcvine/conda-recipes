@@ -14,6 +14,8 @@ pyre:
   - 0.8
 structure:
   - 3.0.1  
+openmpi:
+  - 5.0.7  
 pin_run_as_build:
   gsl:
     max_pin: x.x
@@ -26,4 +28,6 @@ pin_run_as_build:
   histogram:
     max_pin: x.x
   pyre:
+    max_pin: x.x
+  openmpi:
     max_pin: x.x
