@@ -1,9 +1,9 @@
 package:
   name: mcvine-core
-  version: "1.5.2rc1"
+  version: "1.5.2rc3"
 
 source:
-  git_rev: v1.5.2rc1
+  git_rev: v1.5.2rc3
   git_url: https://github.com/mcvine/mcvine.git
 
 requirements:
@@ -16,11 +16,12 @@ requirements:
     - numpy                    {{ numpy }}
     - psutil
     - h5py
-    - mpi4py
+    - mpi4py                   
+    - openmpi                  {{ openmpi }}                      
     - gsl                      {{ gsl }}
     - boost                    
     - mcpl
-    - pyre
+    - pyre                     {{ pyre }}
     - danse.ins.dsm
     - danse.ins.numpyext       {{ numpyext }}
     - danse.ins.bpext          {{ bpext }}
@@ -34,18 +35,19 @@ requirements:
     - cmake
     - python
     - pyyaml
-    - numpy
+    - numpy                    {{ numpy }}
     - psutil
     - h5py
     - mpi4py
-    - gsl
+    - openmpi                  {{ openmpi }}                      
+    - gsl                      {{ gsl }}
     - boost
     - mcpl
-    - pyre
+    - pyre                     {{ pyre }}
     - danse.ins.dsm
-    - danse.ins.numpyext
-    - danse.ins.bpext
-    - histogram
+    - danse.ins.numpyext       {{ numpyext }}
+    - danse.ins.bpext          {{ bpext }}
+    - histogram                {{ histogram }}
     - diffpy.Structure         {{ structure }}
     - periodictable
     - mcvine-resources
