@@ -1,9 +1,10 @@
 package:
   name: mcvine.ui
-  version: "0.0.2"
+  version: "0.0.3rc1"
 
 source:
-  git_rev: v0.0.2
+  #no change in the source code, we point directly to a specific commit (head of master - v0.0.2)
+  git_rev: 8bb1ff2fb9813125698317346437166ca8fc4d88
   git_url: https://github.com/mcvine/ui.git
 
 requirements:
