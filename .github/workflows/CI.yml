@@ -45,7 +45,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -73,7 +73,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -99,7 +99,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -125,7 +125,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -151,7 +151,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -177,7 +177,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -203,7 +203,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -230,7 +230,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -256,7 +256,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -282,7 +282,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -308,7 +308,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -334,7 +334,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
@@ -360,7 +360,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      # setup micromamba
+      - uses: actions/checkout@v4
       - name: Micromamba    
         uses: mamba-org/setup-micromamba@v2
         with:
