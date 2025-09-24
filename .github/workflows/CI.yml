@@ -14,8 +14,9 @@ on:
 jobs:
   danse-bpext-build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -40,8 +41,9 @@ jobs:
 
   danse-ins-build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -67,8 +69,9 @@ jobs:
   danse-dsm-build:
     needs: [danse-ins-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -92,8 +95,9 @@ jobs:
   danse-journal-build:
     needs: [danse-ins-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -117,8 +121,9 @@ jobs:
   danse-numpyext-build:
     needs: [danse-ins-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -142,8 +147,9 @@ jobs:
   danse-pyre-build:
     needs: [danse-ins-build, danse-journal-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -167,8 +173,9 @@ jobs:
   mantid2mcvine-build:
     needs: [mcvine-core-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -192,8 +199,9 @@ jobs:
   mcvine-core-build:
     needs: [danse-dsm-build, danse-numpyext-build, danse-bpext-build, danse-pyre-build, mcvine-resources-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -218,8 +226,9 @@ jobs:
   mcvine-resources-build:
     needs: [danse-ins-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -243,8 +252,9 @@ jobs:
   mcvine-instruments-build:
     needs: [mcvine-resources-build, mcvine-core-build,mantid2mcvine-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -268,8 +278,9 @@ jobs:
   mcvine-phonon-build:
     needs: [mcvine-core-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -293,8 +304,9 @@ jobs:
   mcvine-ui-build:
     needs: [mcvine-core-build, mcvine-workflow-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -318,8 +330,9 @@ jobs:
   mcvine-workflow-build:
     needs: [mcvine-core-build, mcvine-instruments-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
@@ -343,8 +356,9 @@ jobs:
   mcvine-build:
     needs: [mcvine-core-build, mcvine-instruments-build, mcvine-phonon-build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       # setup micromamba
       - name: Micromamba    
