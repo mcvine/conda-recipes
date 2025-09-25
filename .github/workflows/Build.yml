@@ -1,0 +1,386 @@
+name: Build
+
+env: {"CI_NAME": "github-actions"}
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  danse-bpext-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build danse/bpext
+
+
+  danse-ins-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build danse/danse.ins
+
+  danse-dsm-build:
+    needs: [danse-ins-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build danse/dsm
+  danse-journal-build:
+    needs: [danse-ins-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build danse/journal
+  danse-numpyext-build:
+    needs: [danse-ins-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build danse/numpyext
+  danse-pyre-build:
+    needs: [danse-ins-build, danse-journal-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build danse/pyre
+  mantid2mcvine-build:
+    needs: [mcvine-core-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build mantid2mcvine
+  mcvine-core-build:
+    needs: [danse-dsm-build, danse-numpyext-build, danse-bpext-build, danse-pyre-build, mcvine-resources-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build mcvine-core
+
+  mcvine-resources-build:
+    needs: [danse-ins-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build mcvine-resources
+  mcvine-instruments-build:
+    needs: [mcvine-resources-build, mcvine-core-build,mantid2mcvine-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build mcvine.instruments
+  mcvine-phonon-build:
+    needs: [mcvine-core-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build mcvine.phonon
+  mcvine-ui-build:
+    needs: [mcvine-core-build, mcvine-workflow-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build mcvine.ui
+  mcvine-workflow-build:
+    needs: [mcvine-core-build, mcvine-instruments-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build mcvine.workflow
+  mcvine-build:
+    needs: [mcvine-core-build, mcvine-instruments-build,mcvine-workflow-build, mcvine-phonon-build]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build mcvine
+
+
+
+
+
+
