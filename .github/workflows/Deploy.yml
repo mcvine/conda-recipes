@@ -7,6 +7,17 @@ on:
     branches:
       - master
   workflow_dispatch:
+    inputs:
+      run_danse-bpext-pkg:
+        description: 'Deploy bpext?'
+        required: false
+        type: boolean
+        default: false
+      run_danse-ins-pkg:
+        description: 'Deploy danse.ins?'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   check-permission:
@@ -32,10 +43,7 @@ jobs:
   danse-bpext-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash -l {0}
-    if: ${{ needs.check-permission.outputs.permissions == 'write' || needs.check-permission.outputs.permissions == 'admin' }}    
+    if: ${{ (needs.check-permission.outputs.permissions == 'write' || needs.check-permission.outputs.permissions == 'admin') && github.event.inputs.run_danse-bpext-pkg == 'true' }}    
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -58,31 +66,30 @@ jobs:
             conda build danse/bpext
 
 
-  # danse-ins-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build danse/danse.ins
+  danse-ins-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ (needs.check-permission.outputs.permissions == 'write' || needs.check-permission.outputs.permissions == 'admin') && github.event.inputs.run_danse-ins-pkg == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: Micromamba info
+        shell: bash -l {0}
+        run: micromamba info
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build danse/danse.ins
 
   # danse-dsm-pkg:
   #   runs-on: ubuntu-latest
