@@ -354,7 +354,7 @@ jobs:
         run: |
             conda build mcvine.workflow
   mcvine-build:
-    needs: [mcvine-core-build, mcvine-instruments-build, mcvine-phonon-build]
+    needs: [mcvine-core-build, mcvine-instruments-build,mcvine-workflow-build, mcvine-phonon-build]
     runs-on: ubuntu-latest
     defaults:
       run:
