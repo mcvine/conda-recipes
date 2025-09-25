@@ -13,6 +13,7 @@ on:
 
 jobs:
   danse-bpext-build:
+    needs: [danse-ins-build]
     runs-on: ubuntu-latest
     defaults:
       run:
