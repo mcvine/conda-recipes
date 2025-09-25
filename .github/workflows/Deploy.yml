@@ -3,22 +3,21 @@ name: Deploy
 env: {"CI_NAME": "github-actions"}
 
 on:
-  pull_request:
-    branches:
-      - master
   workflow_dispatch:
     inputs:
       run_danse-bpext-pkg:
         description: 'Deploy bpext?'
         required: false
         type: boolean
-        default: false
+        default: true
       run_danse-ins-pkg:
         description: 'Deploy danse.ins?'
         required: false
         type: boolean
-        default: false
-
+        default: true
+  pull_request:
+    branches:
+      - master
 jobs:
   check-permission:
     runs-on: ubuntu-latest
