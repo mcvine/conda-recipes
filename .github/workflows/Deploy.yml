@@ -30,12 +30,12 @@ jobs:
         run: echo "User has write or admin access."
 
   danse-bpext-pkg:
-    needs: check-permissions
-    if: ${{ needs.check-permission.outputs.permissions == 'write' || needs.check-permission.outputs.permissions == 'admin' }}
+    needs: check-permission
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash -l {0}
+    if: ${{ needs.check-permission.outputs.permissions == 'write' || needs.check-permission.outputs.permissions == 'admin' }}    
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
