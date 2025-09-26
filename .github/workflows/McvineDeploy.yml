@@ -67,7 +67,7 @@ jobs:
         shell: bash -l {0}
         run: |
           # echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
-          echo "is_permitted=TRUE">> $GITHUB_OUTPUT
+          echo "is_permitted=true">> $GITHUB_OUTPUT
       - name: Check if user has write access
         run: |
           echo "${{ steps.permission.outputs.is_permittted }}"
