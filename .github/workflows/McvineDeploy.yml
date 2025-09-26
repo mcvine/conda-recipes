@@ -62,11 +62,11 @@ jobs:
       #     username: ${{ github.actor }}
       #     team: mcvine-dev
       #     organization: 'mcvine'
+      # echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
       - name: Set user membership status
         id: permission
         shell: bash -l {0}
         run: |
-          # echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
           echo "is_permitted=true">> $GITHUB_OUTPUT
       - name: Check if user has write access
         #run: |
