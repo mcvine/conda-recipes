@@ -28,7 +28,7 @@ jobs:
         id: get_permission
         uses: tspascoal/get-user-teams-membership@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MCVineTeamID }}
           username: ${{ github.actor }}
           team: mcvine-dev
       - name: Set user membership status
@@ -64,6 +64,13 @@ jobs:
         shell: bash -l {0}
         run: |
             conda build danse/bpext
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          # label is main or rc depending on the tag-name
+          echo pushing danse/bpext- with label mcvine
+          # anaconda upload
 
 
   danse-ins-pkg:
