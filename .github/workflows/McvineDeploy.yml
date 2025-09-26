@@ -9,42 +9,42 @@ on:
         description: 'Deploy mantid2mcvine?'
         required: false
         type: boolean
-        default: true        
+        default: false        
       run_mcvine-core-pkg:
         description: 'Deploy mcvine-core?'
         required: false
         type: boolean
-        default: true       
+        default: false        
       run_mcvine-resources-pkg:
         description: 'Deploy mcvine-resources?'
         required: false
         type: boolean
-        default: true       
+        default: false        
       run_mcvine-instruments-pkg:
         description: 'Deploy mcvine-resources?'
         required: false
         type: boolean
-        default: true       
+        default: false        
       run_mcvine-phonon-pkg:
         description: 'Deploy mcvine.phonon?'
         required: false
         type: boolean
-        default: true       
+        default: false        
       run_mcvine-ui-pkg:
         description: 'Deploy mcvine.ui?'
         required: false
         type: boolean
-        default: true
+        default: false        
       run_mcvine-workflow-pkg:
         description: 'Deploy mcvine.workflow?'
         required: false
         type: boolean
-        default: true    
+        default: false        
       run_mcvine-pkg:
         description: 'Deploy mcvine?'
         required: false
         type: boolean
-        default: true                                                                                                   
+        default: false        
   pull_request:
     branches:
       - master

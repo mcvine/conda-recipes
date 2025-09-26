@@ -9,32 +9,32 @@ on:
         description: 'Deploy bpext?'
         required: false
         type: boolean
-        default: true
+        default: false        
       run_danse-ins-pkg:
         description: 'Deploy danse.ins?'
         required: false
         type: boolean
-        default: true
+        default: false        
       run_danse-dsm-pkg:
         description: 'Deploy dsm?'
         required: false
         type: boolean
-        default: true
+        default: false        
       run_danse-journal-pkg:
         description: 'Deploy journal?'
         required: false
         type: boolean
-        default: true
+        default: false        
       run_danse-numpyext-pkg:
         description: 'Deploy numpyext?'
         required: false
         type: boolean
-        default: true
+        default: false        
       run_danse-pyre-pkg:
         description: 'Deploy pyre?'
         required: false
         type: boolean
-        default: true
+        default: false        
   pull_request:
     branches:
       - master
