@@ -1,4 +1,4 @@
-name: Deploy
+name: DanseDeploy
 
 env: {"CI_NAME": "github-actions"}
 

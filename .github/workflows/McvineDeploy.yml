@@ -1,4 +1,4 @@
-name: Deploy
+name: McvineDeploy
 
 env: {"CI_NAME": "github-actions"}
 
