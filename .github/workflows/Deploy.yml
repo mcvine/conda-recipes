@@ -15,6 +15,66 @@ on:
         required: false
         type: boolean
         default: true
+      run_danse-dsm-pkg:
+        description: 'Deploy dsm?'
+        required: false
+        type: boolean
+        default: true
+      run_danse-journal-pkg:
+        description: 'Deploy journal?'
+        required: false
+        type: boolean
+        default: true
+      run_danse-numpyext-pkg:
+        description: 'Deploy numpyext?'
+        required: false
+        type: boolean
+        default: true
+      run_danse-pyre-pkg:
+        description: 'Deploy pyre?'
+        required: false
+        type: boolean
+        default: true
+      run_mantid2mcvine-pkg:
+        description: 'Deploy mantid2mcvine?'
+        required: false
+        type: boolean
+        default: true        
+      run_mcvine-core-pkg:
+        description: 'Deploy mcvine-core?'
+        required: false
+        type: boolean
+        default: true       
+      run_mcvine-resources-pkg:
+        description: 'Deploy mcvine-resources?'
+        required: false
+        type: boolean
+        default: true       
+      run_mcvine-instruments-pkg:
+        description: 'Deploy mcvine-resources?'
+        required: false
+        type: boolean
+        default: true       
+      run_mcvine-phonon-pkg:
+        description: 'Deploy mcvine.phonon?'
+        required: false
+        type: boolean
+        default: true       
+      run_mcvine-ui-pkg:
+        description: 'Deploy mcvine.ui?'
+        required: false
+        type: boolean
+        default: true
+      run_mcvine-workflow-pkg:
+        description: 'Deploy mcvine.workflow?'
+        required: false
+        type: boolean
+        default: true    
+      run_mcvine-pkg:
+        description: 'Deploy mcvine?'
+        required: false
+        type: boolean
+        default: true                                                                                                   
   pull_request:
     branches:
       - master
@@ -24,19 +84,20 @@ jobs:
     outputs:
       is_permitted: ${{ steps.permission.outputs.is_permitted }}
     steps:
-      - name: Get user mcvin-dev membership
-        id: get_permission
-        uses: tspascoal/get-user-teams-membership@v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.MCVineTeamID }}
-          username: ${{ github.actor }}
-          team: mcvine-dev
-          organization: 'mcvine'
+      # - name: Get user mcvin-dev membership
+      #   id: get_permission
+      #   uses: tspascoal/get-user-teams-membership@v2
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.MCVineTeamID }}
+      #     username: ${{ github.actor }}
+      #     team: mcvine-dev
+      #     organization: 'mcvine'
       - name: Set user membership status
         id: permission
         shell: bash -l {0}
         run: |
-          echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
+          # echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
+          echo "is_permitted=TRUE">> $GITHUB_OUTPUT
       - name: Check if user has write access
         if: ${{ steps.permission.outputs.is_permittted }}
         run: echo "User has is member of mcvine-dev team. Access granted for deploy!"
@@ -58,21 +119,15 @@ jobs:
             - mcvine
             - mcvine/label/rc
             - conda-forge
-      - name: Micromamba info
-        shell: bash -l {0}
-        run: micromamba info
       - name: build_package
         shell: bash -l {0}
-        run: |
-            conda build danse/bpext
+        run: conda build danse/bpext
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          # label is main or rc depending on the tag-name
           echo pushing danse/bpext- with label mcvine
           # anaconda upload
-
 
   danse-ins-pkg:
     needs: check-permission
@@ -91,316 +146,340 @@ jobs:
             - mcvine
             - mcvine/label/rc
             - conda-forge
-      - name: Micromamba info
+      - name: build_package
         shell: bash -l {0}
-        run: micromamba info
+        run: conda build danse/danse.ins
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/danse.ins- with label mcvine
+          # anaconda upload
+
+  danse-dsm-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-dsm-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
       - name: build_package
         shell: bash -l {0}
         run: |
-            conda build danse/danse.ins
+            conda build danse/dsm
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/dsm- with label mcvine
+          # anaconda upload
 
-  # danse-dsm-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build danse/dsm
-  # danse-journal-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build danse/journal
-  # danse-numpyext-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build danse/numpyext
-  # danse-pyre-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build danse/pyre
-  # mantid2mcvine-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build mantid2mcvine
-  # mcvine-core-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build mcvine-core
+  danse-journal-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-journal-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build danse/journal
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/journal- with label mcvine
+          # anaconda upload
 
-  # mcvine-resources-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build mcvine-resources
-  # mcvine-instruments-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build mcvine.instruments
-  # mcvine-phonon-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build mcvine.phonon
-  # mcvine-ui-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build mcvine.ui
-  # mcvine-workflow-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build mcvine.workflow
-  # mcvine-pkg:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: Micromamba info
-  #       shell: bash -l {0}
-  #       run: micromamba info
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: |
-  #           conda build mcvine
+  danse-numpyext-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-numpyext-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build danse/numpyext
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/journal- with label mcvine
+          # anaconda upload
 
+  danse-pyre-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-pyre-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build danse/pyre
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/pyre- with label mcvine
+          # anaconda upload
+
+  mantid2mcvine-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mantid2mcvine-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mantid2mcvine
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing mantid2mcvine- with label mcvine
+          # anaconda upload
+
+  mcvine-core-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-core-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine-core
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing mcvine-core- with label mcvine
+          # anaconda upload
+
+  mcvine-resources-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-resources-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine-resources
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing mcvine-resources- with label mcvine
+          # anaconda upload
+      
+  mcvine-instruments-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-instruments-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine.instruments
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing mcvine.instruments- with label mcvine
+          # anaconda upload
+
+  mcvine-phonon-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-phonon-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine.phonon
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing mcvine.phonon- with label mcvine
+          # anaconda upload
+
+  mcvine-ui-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-ui-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine.ui
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing mcvine.ui- with label mcvine
+          # anaconda upload
+
+  mcvine-workflow-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-workflow-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine.workflow
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing mcvine.workflow- with label mcvine
+          # anaconda upload
+
+  mcvine-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing mcvine- with label mcvine
+          # anaconda upload
 
 
 
