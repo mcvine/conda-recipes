@@ -68,7 +68,7 @@ jobs:
   danse-ins-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ (needs.check-permission.outputs.permissions == 'write' || needs.check-permission.outputs.permissions == 'admin') github.event.inputs.run_danse-ins-pkg == 'true' }}
+    if: ${{ (needs.check-permission.outputs.permissions == 'write' || needs.check-permission.outputs.permissions == 'admin') && github.event.inputs.run_danse-ins-pkg == 'true' }}
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
