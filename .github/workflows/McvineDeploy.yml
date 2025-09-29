@@ -67,12 +67,12 @@ jobs:
         shell: bash -l {0}
         run: |
           echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
-      - name: User Acces
+      - name: User Access
         run: |
           if [ "${{ steps.permission.outputs.is_permitted }}" == "true" ]; then
-            echo "User is member of the mcvine-dev team. Access granted for deploy!"
+            echo "Access Granted for Deploy!"
           else
-            echo "Access Deined"
+            echo "Access Denied!"
             exit 1
           fi  
         
@@ -107,7 +107,7 @@ jobs:
   mcvine-core-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-core-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-core-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -128,13 +128,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine-core- with label mcvine
+          CONDA_LABEL="mcvine"
+          echo pushing mcvine-core- with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-resources-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-resources-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-resources-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -155,13 +156,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine-resources- with label mcvine
+          CONDA_LABEL="mcvine"
+          echo pushing mcvine-resources- with label $CONDA_LABEL
           # anaconda upload
       
   mcvine-instruments-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-instruments-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-instruments-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -182,13 +184,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine.instruments- with label mcvine
+          CONDA_LABEL="mcvine"
+          echo pushing mcvine.instruments- with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-phonon-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-phonon-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-phonon-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -209,13 +212,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine.phonon- with label mcvine
+          CONDA_LABEL="mcvine"
+          echo pushing mcvine.phonon- with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-ui-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-ui-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-ui-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -236,13 +240,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine.ui- with label mcvine
+          CONDA_LABEL="mcvine"
+          echo pushing mcvine.ui- with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-workflow-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-workflow-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-workflow-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -263,13 +268,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine.workflow- with label mcvine
+          CONDA_LABEL="mcvine"
+          echo pushing mcvine.workflow- with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -290,7 +296,8 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine- with label mcvine
+          CONDA_LABEL="mcvine"
+          echo pushing mcvine- with label $CONDA_LABEL
           # anaconda upload
 
 
