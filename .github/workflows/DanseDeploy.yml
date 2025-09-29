@@ -35,9 +35,7 @@ on:
         required: false
         type: boolean
         default: false        
-  pull_request:
-    branches:
-      - master
+
 jobs:
   check-permission:
     runs-on: ubuntu-latest
