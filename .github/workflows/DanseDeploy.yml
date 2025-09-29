@@ -1,0 +1,225 @@
+name: DanseDeploy
+
+env: {"CI_NAME": "github-actions"}
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_danse-bpext-pkg:
+        description: 'Deploy bpext?'
+        required: false
+        type: boolean
+        default: false        
+      run_danse-ins-pkg:
+        description: 'Deploy danse.ins?'
+        required: false
+        type: boolean
+        default: false        
+      run_danse-dsm-pkg:
+        description: 'Deploy dsm?'
+        required: false
+        type: boolean
+        default: false        
+      run_danse-journal-pkg:
+        description: 'Deploy journal?'
+        required: false
+        type: boolean
+        default: false        
+      run_danse-numpyext-pkg:
+        description: 'Deploy numpyext?'
+        required: false
+        type: boolean
+        default: false        
+      run_danse-pyre-pkg:
+        description: 'Deploy pyre?'
+        required: false
+        type: boolean
+        default: false        
+  pull_request:
+    branches:
+      - master
+jobs:
+  check-permission:
+    runs-on: ubuntu-latest
+    outputs:
+      is_permitted: ${{ steps.permission.outputs.is_permitted }}
+    steps:
+      - name: Get user mcvin-dev membership
+        id: get_permission
+        uses: tspascoal/get-user-teams-membership@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.TEAM_TOKEN }}
+          username: ${{ github.actor }}
+          team: mcvine-dev
+          organization: 'mcvine'
+      - name: Set user membership status
+        id: permission
+        shell: bash -l {0}
+        run: |
+          echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
+      - name: Check if user has write access
+        if: ${{ steps.permission.outputs.is_permitted == 'true'}}
+        run: echo "User is member of the mcvine-dev team. Access granted for deploy!"
+
+  danse-bpext-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-bpext-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build danse/bpext
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/bpext- with label mcvine
+          # anaconda upload
+
+  danse-ins-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-ins-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build danse/danse.ins
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/danse.ins- with label mcvine
+          # anaconda upload
+
+  danse-dsm-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-dsm-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: |
+            conda build danse/dsm
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/dsm- with label mcvine
+          # anaconda upload
+
+  danse-journal-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-journal-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build danse/journal
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/journal- with label mcvine
+          # anaconda upload
+
+  danse-numpyext-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-numpyext-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build danse/numpyext
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/journal- with label mcvine
+          # anaconda upload
+
+  danse-pyre-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-pyre-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build danse/pyre
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo pushing danse/pyre- with label mcvine
+          # anaconda upload
