@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       run_danse-bpext-pkg:
-        description: 'Deploy bpext?'
+        description: 'Deploy danse.ins.bpext?'
         required: false
         type: boolean
         default: false        
@@ -16,7 +16,7 @@ on:
         type: boolean
         default: false        
       run_danse-dsm-pkg:
-        description: 'Deploy dsm?'
+        description: 'Deploy danse.ins.dsm?'
         required: false
         type: boolean
         default: false        
@@ -26,7 +26,7 @@ on:
         type: boolean
         default: false        
       run_danse-numpyext-pkg:
-        description: 'Deploy numpyext?'
+        description: 'Deploy danse.ins.numpyext?'
         required: false
         type: boolean
         default: false        
@@ -123,7 +123,7 @@ jobs:
           # anaconda upload
 
   danse-dsm-pkg:
-    needs: [check-permission, danse-ins-pkg]
+    needs: check-permission
     runs-on: ubuntu-latest
     if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_danse-dsm-pkg == 'true' }} 
     steps:
