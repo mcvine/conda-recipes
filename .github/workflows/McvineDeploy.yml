@@ -96,7 +96,7 @@ jobs:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing mantid2mcvine- with label ${{ CONDA_LABEL }}
+          echo pushing mantid2mcvine- with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-core-pkg:
