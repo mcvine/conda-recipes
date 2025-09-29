@@ -37,7 +37,27 @@ on:
         default: false        
 
 jobs:
+  main-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      is_master: ${{ steps.branch_info.outputs.is_master }}
+    steps:
+      - name: Get branch info
+        id: branch_info
+        shell: bash -l {0}
+        run: |
+          echo "is_master=${{ github.ref == 'refs/heads/master'}}" >> $GITHUB_OUTPUT
+      - name: Branch Access
+        run: |
+          if [ "${{ steps.branch_info.outputs.is_master }}" == "true" ]; then
+            echo "Master Branch found!"
+          else
+            echo "Deploy workflow runs only on the master branch!"
+            exit 1
+          fi  
+        
   check-permission:
+    needs: main-branch
     runs-on: ubuntu-latest
     outputs:
       is_permitted: ${{ steps.permission.outputs.is_permitted }}
