@@ -54,13 +54,13 @@ jobs:
     outputs:
       is_permitted: ${{ steps.permission.outputs.is_permitted }}
     steps:
-      - name: Get user mcvin-dev membership
+      - name: Get user mcvine-dev membership
         id: get_permission
         uses: tspascoal/get-user-teams-membership@v2
         with:
           GITHUB_TOKEN: ${{ secrets.TEAM_TOKEN }}
           username: ${{ github.actor }}
-          team: mcvine-dev
+          team: deploy
           organization: 'mcvine'
       - name: Set user membership status
         id: permission
@@ -94,8 +94,9 @@ jobs:
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          CONDA_LABEL: mcvine
         run: |
-          echo pushing mantid2mcvine- with label mcvine
+          echo pushing mantid2mcvine- with label ${{ CONDA_LABEL }}
           # anaconda upload
 
   mcvine-core-pkg:
