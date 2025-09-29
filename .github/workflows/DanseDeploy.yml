@@ -123,7 +123,7 @@ jobs:
           # anaconda upload
 
   danse-dsm-pkg:
-    needs: check-permission
+    needs: [check-permission, danse-ins-pkg]
     runs-on: ubuntu-latest
     if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_danse-dsm-pkg == 'true' }} 
     steps:
