@@ -69,7 +69,7 @@ jobs:
           echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
       - name: User Acces
         run: |
-          if [ "${{ steps.permission.outputs.is_permitted }}" == "true"]; then
+          if [ "${{ steps.permission.outputs.is_permitted }}" == "true" ]; then
             echo "User is member of the mcvine-dev team. Access granted for deploy!"
           else
             echo "Access Deined"
