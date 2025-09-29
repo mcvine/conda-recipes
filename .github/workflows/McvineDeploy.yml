@@ -74,7 +74,7 @@ jobs:
   mantid2mcvine-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mantid2mcvine-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mantid2mcvine-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
