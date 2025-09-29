@@ -85,13 +85,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build danse/bpext
+        run: conda build danse/bpext --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing danse/bpext- with label $CONDA_LABEL
+          echo ./linux-64/danse.ins.bpext-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   danse-ins-pkg:
@@ -113,13 +113,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build danse/danse.ins
+        run: conda build danse/danse.ins --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing danse/danse.ins- with label $CONDA_LABEL
+          echo noarch/danse.ins-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   danse-dsm-pkg:
@@ -142,13 +142,13 @@ jobs:
       - name: build_package
         shell: bash -l {0}
         run: |
-            conda build danse/dsm
+          conda build danse/dsm --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing danse/dsm- with label $CONDA_LABEL
+          echo ./noarch/danse.ins.dsm-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   danse-journal-pkg:
@@ -170,13 +170,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build danse/journal
+        run: conda build danse/journal --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing danse/journal- with label $CONDA_LABEL
+          echo ./linux-64/journal-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   danse-numpyext-pkg:
@@ -198,13 +198,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build danse/numpyext
+        run: conda build danse/numpyext --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing danse/journal- with label $CONDA_LABEL
+          echo ./linux-64/danse.ins.numpyext-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   danse-pyre-pkg:
@@ -226,11 +226,11 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build danse/pyre
+        run: conda build danse/pyre --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing danse/pyre- with label $CONDA_LABEL
+          echo ./linux-64/pyre-* pushing with label $CONDA_LABEL
           # anaconda upload

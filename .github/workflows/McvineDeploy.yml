@@ -95,13 +95,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mantid2mcvine
+        run: conda build mantid2mcvine --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing mantid2mcvine- with label $CONDA_LABEL
+          echo ./noarch/mantid2mcvine-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-core-pkg:
@@ -123,13 +123,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine-core
+        run: conda build mcvine-core --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing mcvine-core- with label $CONDA_LABEL
+          echo ./linux-64/mcvine-core-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-resources-pkg:
@@ -151,13 +151,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine-resources
+        run: conda build mcvine-resources --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing mcvine-resources- with label $CONDA_LABEL
+          echo ./noarch/mcvine-resources-* pushing with label $CONDA_LABEL
           # anaconda upload
       
   mcvine-instruments-pkg:
@@ -179,13 +179,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine.instruments
+        run: conda build mcvine.instruments --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing mcvine.instruments- with label $CONDA_LABEL
+          echo ./noarch/mcvine.instruments-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-phonon-pkg:
@@ -207,13 +207,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine.phonon
+        run: conda build mcvine.phonon --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing mcvine.phonon- with label $CONDA_LABEL
+          echo ./noarch/mcvine.phonon-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-ui-pkg:
@@ -235,13 +235,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine.ui
+        run: conda build mcvine.ui --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing mcvine.ui- with label $CONDA_LABEL
+          echo ./noarch/mcvine.ui-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-workflow-pkg:
@@ -263,13 +263,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine.workflow
+        run: conda build mcvine.workflow --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing mcvine.workflow- with label $CONDA_LABEL
+          echo ./noarch/mcvine.workflow-* pushing with label $CONDA_LABEL
           # anaconda upload
 
   mcvine-pkg:
@@ -291,13 +291,13 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine
-      - name: Upload package to anaconda
+        run: conda build mcvine --output-folder .
+      - name: Upload package to anacond
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           CONDA_LABEL="mcvine"
-          echo pushing mcvine- with label $CONDA_LABEL
+          echo ./noarch/mcvine-[0-9]* pushing with label $CONDA_LABEL
           # anaconda upload
 
 
