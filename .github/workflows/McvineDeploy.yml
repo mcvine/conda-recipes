@@ -54,20 +54,19 @@ jobs:
     outputs:
       is_permitted: ${{ steps.permission.outputs.is_permitted }}
     steps:
-      # - name: Get user mcvin-dev membership
-      #   id: get_permission
-      #   uses: tspascoal/get-user-teams-membership@v2
-      #   with:
-      #     GITHUB_TOKEN: ${{ secrets.MCVineTeamID }}
-      #     username: ${{ github.actor }}
-      #     team: mcvine-dev
-      #     organization: 'mcvine'
-      # echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
+      - name: Get user mcvin-dev membership
+        id: get_permission
+        uses: tspascoal/get-user-teams-membership@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.TEAM_TOKEN }}
+          username: ${{ github.actor }}
+          team: mcvine-dev
+          organization: 'mcvine'
       - name: Set user membership status
         id: permission
         shell: bash -l {0}
         run: |
-          echo "is_permitted=true">> $GITHUB_OUTPUT
+          echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
       - name: Check if user has write access
         if: ${{ steps.permission.outputs.is_permitted == 'true'}}
         run: echo "User is member of the mcvine-dev team. Access granted for deploy!"
