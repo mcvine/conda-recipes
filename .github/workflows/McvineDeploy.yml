@@ -67,10 +67,14 @@ jobs:
         shell: bash -l {0}
         run: |
           echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
-      - name: Check if user has write access
-        if: ${{ steps.permission.outputs.is_permitted == 'true'}}
-        run: echo "User is member of the mcvine-dev team. Access granted for deploy!"
-
+      - name: User Acces
+        run: |
+          if [ "${{ steps.permission.outputs.is_permitted }}" == "true"]; then
+            echo "User is member of the mcvine-dev team. Access granted for deploy!"
+          else
+            echo "Access Deined"
+            exit 1
+        
   mantid2mcvine-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
