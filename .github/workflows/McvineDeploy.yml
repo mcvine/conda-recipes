@@ -338,7 +338,8 @@ jobs:
       - name: build_package
         shell: bash -l {0}
         run: conda build mcvine --output-folder .
-      - name: Upload package to anacond
+      - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
