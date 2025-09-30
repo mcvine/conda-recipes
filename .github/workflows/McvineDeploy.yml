@@ -118,12 +118,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
+          pkg=`ls noarch/mantid2mcvine-*`
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mantid2mcvine-*" =~ ([0-9]+rc[0-9]+) ]]; then
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
-          fi
-          echo noarch/mantid2mcvine-* pushing with label $CONDA_LABEL
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-core-pkg:
@@ -150,12 +151,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
+          pkg=`ls linux-64/mcvine-core-*`
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "linux-64/mcvine-core-*" =~ ([0-9]+rc[0-9]+) ]]; then
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
-          fi
-          echo linux-64/mcvine-core-* pushing with label $CONDA_LABEL
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-resources-pkg:
@@ -182,12 +184,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
+          pkg=`ls noarch/mcvine-resources-*`
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine-resources-*" =~ ([0-9]+rc[0-9]+) ]]; then
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
-          fi
-          echo noarch/mcvine-resources-* pushing with label $CONDA_LABEL
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER
       
   mcvine-instruments-pkg:
@@ -214,12 +217,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
+          pkg=`ls noarch/mcvine.instruments-*`
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine.instruments-*" =~ ([0-9]+rc[0-9]+) ]]; then
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
-          fi
-          echo noarch/mcvine.instruments-* pushing with label $CONDA_LABEL
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-phonon-pkg:
@@ -246,12 +250,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
+          pkg=`ls noarch/mcvine.phonon-*`
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine.phonon-*" =~ ([0-9]+rc[0-9]+) ]]; then
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
-          fi 
-          echo noarch/mcvine.phonon-* pushing with label $CONDA_LABEL
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-ui-pkg:
@@ -278,12 +283,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
+          pkg=`ls noarch/mcvine.ui-*`
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine.ui-*" =~ ([0-9]+rc[0-9]+) ]]; then
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
-          fi 
-          echo noarch/mcvine.ui-* pushing with label $CONDA_LABEL
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-workflow-pkg:
@@ -310,12 +316,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
+          pkg=`ls noarch/mcvine.workflow-*`
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine.workflow-*" =~ ([0-9]+rc[0-9]+) ]]; then
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
-          fi 
-          echo noarch/mcvine.workflow-* pushing with label $CONDA_LABEL
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-pkg:
@@ -343,11 +350,11 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
+          pkg=`ls noarch/mcvine-[0-9]*`
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          pkg=`ls noarch/mcvine-[0-9]*`
           if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
           fi  
-          echo pkg pushing with label $CONDA_LABEL
+          echo $pkg pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER
