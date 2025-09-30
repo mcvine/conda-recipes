@@ -108,9 +108,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ "/linux-64/danse.ins.bpext-*" =~ *"rc"* ]]; then
+            CONDA_LABEL="rc"
+          fi  
           echo ./linux-64/danse.ins.bpext-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER 
 
   danse-ins-pkg:
     needs: check-permission
