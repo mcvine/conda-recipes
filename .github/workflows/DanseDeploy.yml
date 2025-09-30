@@ -46,7 +46,7 @@ jobs:
         id: branch_info
         shell: bash -l {0}
         run: |
-          echo "is_master=${{ github.ref != 'refs/heads/master'}}" >> $GITHUB_OUTPUT
+          echo "is_master=${{ github.ref == 'refs/heads/master'}}" >> $GITHUB_OUTPUT
       - name: Branch Access
         run: |
           if [ "${{ steps.branch_info.outputs.is_master }}" == "true" ]; then
