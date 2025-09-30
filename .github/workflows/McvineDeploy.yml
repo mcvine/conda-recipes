@@ -345,8 +345,9 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine-[0-9]*" =~ ([0-9]+rc[0-9]+) ]]; then
+          pkg=`ls noarch/mcvine-[0-9]*`
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
           fi  
-          echo noarch/mcvine-[0-9]* pushing with label $CONDA_LABEL
+          echo pkg pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER
