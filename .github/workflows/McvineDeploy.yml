@@ -316,13 +316,8 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine-[0-9]*" =~ *"rc"* ]]; then
+          if [[ "noarch/mcvine-[0-9]*" =~ "rc" ]]; then
             CONDA_LABEL="rc"
           fi  
           echo noarch/mcvine-[0-9]* pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER
-
-
-
-
-
