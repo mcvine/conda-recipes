@@ -118,9 +118,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./noarch/mantid2mcvine-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ "noarch/mantid2mcvine-*" =~ "rc" ]]; then
+            CONDA_LABEL="rc"
+          fi
+          echo noarch/mantid2mcvine-* pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-core-pkg:
     needs: check-permission
@@ -146,9 +150,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./linux-64/mcvine-core-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ "linux-64/mcvine-core-*" =~ "rc" ]]; then
+            CONDA_LABEL="rc"
+          fi
+          echo linux-64/mcvine-core-* pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-resources-pkg:
     needs: check-permission
@@ -174,9 +182,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./noarch/mcvine-resources-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ "noarch/mcvine-resources-*" =~ "rc" ]]; then
+            CONDA_LABEL="rc"
+          fi
+          echo noarch/mcvine-resources-* pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
       
   mcvine-instruments-pkg:
     needs: check-permission
@@ -202,9 +214,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./noarch/mcvine.instruments-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ "noarch/mcvine.instruments-*" =~ "rc" ]]; then
+            CONDA_LABEL="rc"
+          fi
+          echo noarch/mcvine.instruments-* pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-phonon-pkg:
     needs: check-permission
@@ -230,9 +246,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./noarch/mcvine.phonon-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ "noarch/mcvine.phonon-*" =~ "rc" ]]; then
+            CONDA_LABEL="rc"
+          fi 
+          echo noarch/mcvine.phonon-* pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-ui-pkg:
     needs: check-permission
@@ -258,9 +278,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./noarch/mcvine.ui-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ "noarch/mcvine.ui-*" =~ "rc" ]]; then
+            CONDA_LABEL="rc"
+          fi 
+          echo noarch/mcvine.ui-* pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-workflow-pkg:
     needs: check-permission
@@ -286,9 +310,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./noarch/mcvine.workflow-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ "noarch/mcvine.workflow-*" =~ "rc" ]]; then
+            CONDA_LABEL="rc"
+          fi 
+          echo noarch/mcvine.workflow-* pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   mcvine-pkg:
     needs: check-permission
