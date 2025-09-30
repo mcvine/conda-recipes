@@ -120,7 +120,7 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mantid2mcvine-*" =~ "rc" ]]; then
+          if [[ "noarch/mantid2mcvine-*" =~ [0-9]*rc[0-9]* ]]; then
             CONDA_LABEL="rc"
           fi
           echo noarch/mantid2mcvine-* pushing with label $CONDA_LABEL
@@ -152,7 +152,7 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "linux-64/mcvine-core-*" =~ "rc" ]]; then
+          if [[ "linux-64/mcvine-core-*" =~ [0-9]*rc[0-9]* ]]; then
             CONDA_LABEL="rc"
           fi
           echo linux-64/mcvine-core-* pushing with label $CONDA_LABEL
@@ -184,7 +184,7 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine-resources-*" =~ "rc" ]]; then
+          if [[ "noarch/mcvine-resources-*" =~ [0-9]*rc[0-9]* ]]; then
             CONDA_LABEL="rc"
           fi
           echo noarch/mcvine-resources-* pushing with label $CONDA_LABEL
@@ -216,7 +216,7 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine.instruments-*" =~ "rc" ]]; then
+          if [[ "noarch/mcvine.instruments-*" =~ [0-9]*rc[0-9]* ]]; then
             CONDA_LABEL="rc"
           fi
           echo noarch/mcvine.instruments-* pushing with label $CONDA_LABEL
@@ -248,7 +248,7 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine.phonon-*" =~ "rc" ]]; then
+          if [[ "noarch/mcvine.phonon-*" =~ [0-9]*rc[0-9]* ]]; then
             CONDA_LABEL="rc"
           fi 
           echo noarch/mcvine.phonon-* pushing with label $CONDA_LABEL
@@ -280,7 +280,7 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine.ui-*" =~ "rc" ]]; then
+          if [[ "noarch/mcvine.ui-*" =~ [0-9]*rc[0-9]* ]]; then
             CONDA_LABEL="rc"
           fi 
           echo noarch/mcvine.ui-* pushing with label $CONDA_LABEL
@@ -312,7 +312,7 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine.workflow-*" =~ "rc" ]]; then
+          if [[ "noarch/mcvine.workflow-*" =~ [0-9]*rc[0-9]* ]]; then
             CONDA_LABEL="rc"
           fi 
           echo noarch/mcvine.workflow-* pushing with label $CONDA_LABEL
@@ -344,7 +344,7 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/mcvine-[0-9]*" =~ "rc" ]]; then
+          if [[ "noarch/mcvine-[0-9]*" =~ [0-9]*rc[0-9]* ]]; then
             CONDA_LABEL="rc"
           fi  
           echo noarch/mcvine-[0-9]* pushing with label $CONDA_LABEL
