@@ -110,10 +110,10 @@ jobs:
         run: |
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "/linux-64/danse.ins.bpext-*" =~ *"rc"* ]]; then
+          if [[ "linux-64/danse.ins.bpext-*" =~ *"rc"* ]]; then
             CONDA_LABEL="rc"
           fi  
-          echo ./linux-64/danse.ins.bpext-* pushing with label $CONDA_LABEL
+          echo linux-64/danse.ins.bpext-* pushing with label $CONDA_LABEL
           # anaconda upload --label CONDA_LABEL --user $CONDA_USER 
 
   danse-ins-pkg:
@@ -140,9 +140,13 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo noarch/danse.ins-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ "noarch/danse.ins-*" =~ *"rc"* ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo noarch/danse.ins-*  pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER 
 
   danse-dsm-pkg:
     needs: check-permission
