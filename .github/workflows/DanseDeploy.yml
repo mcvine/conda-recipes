@@ -115,7 +115,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   danse-ins-pkg:
     needs: check-permission
@@ -148,7 +148,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   danse-dsm-pkg:
     needs: check-permission
@@ -182,7 +182,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   danse-journal-pkg:
     needs: check-permission
@@ -215,7 +215,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   danse-numpyext-pkg:
     needs: check-permission
@@ -248,7 +248,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   danse-pyre-pkg:
     needs: check-permission
@@ -281,4 +281,4 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
