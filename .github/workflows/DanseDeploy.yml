@@ -108,13 +108,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
+          pkg=`ls linux-64/danse.ins.bpext-*`
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "linux-64/danse.ins.bpext-*" =~ *"rc"* ]]; then
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
           fi  
-          echo linux-64/danse.ins.bpext-* pushing with label $CONDA_LABEL
-          # anaconda upload --label CONDA_LABEL --user $CONDA_USER 
+          echo $pkg pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   danse-ins-pkg:
     needs: check-permission
@@ -140,13 +141,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
+          pkg=`ls noarch/danse.ins-*`
           CONDA_USER="mcvine"
           CONDA_LABEL="main"
-          if [[ "noarch/danse.ins-*" =~ *"rc"* ]]; then
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
             CONDA_LABEL="rc"
           fi  
-          echo noarch/danse.ins-*  pushing with label $CONDA_LABEL
-          # anaconda upload --label CONDA_LABEL --user $CONDA_USER 
+          echo $pkg pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   danse-dsm-pkg:
     needs: check-permission
@@ -173,9 +175,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./noarch/danse.ins.dsm-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          pkg=`ls noarch/danse.ins.dsm-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   danse-journal-pkg:
     needs: check-permission
@@ -201,9 +208,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./linux-64/journal-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          pkg=`ls linux-64/journal-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   danse-numpyext-pkg:
     needs: check-permission
@@ -229,9 +241,14 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./linux-64/danse.ins.numpyext-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          pkg=`ls linux-64/danse.ins.numpyext-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
 
   danse-pyre-pkg:
     needs: check-permission
@@ -257,6 +274,11 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          CONDA_LABEL="mcvine"
-          echo ./linux-64/pyre-* pushing with label $CONDA_LABEL
-          # anaconda upload
+          pkg=`ls linux-64/pyre-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          # anaconda upload --label CONDA_LABEL --user $CONDA_USER
