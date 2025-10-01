@@ -128,234 +128,234 @@ jobs:
           echo $pkg pushing with label $CONDA_LABEL
           anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
-  # mcvine-core-pkg:
-  #   needs: check-permission
-  #   runs-on: ubuntu-latest
-  #   if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-core-pkg == 'true' }} 
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: conda build mcvine-core --output-folder .
-  #     - name: Upload package to anaconda
-  #       env:
-  #         ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
-  #       run: |
-  #         pkg=`ls linux-64/mcvine-core-*`
-  #         CONDA_USER="mcvine"
-  #         CONDA_LABEL="main"
-  #         if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
-  #           CONDA_LABEL="rc"
-  #         fi  
-  #         echo $pkg pushing with label $CONDA_LABEL
-  #         anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+  mcvine-core-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-core-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine-core --output-folder .
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
+        run: |
+          pkg=`ls linux-64/mcvine-core-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
-  # mcvine-resources-pkg:
-  #   needs: check-permission
-  #   runs-on: ubuntu-latest
-  #   if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-resources-pkg == 'true' }} 
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: conda build mcvine-resources --output-folder .
-  #     - name: Upload package to anaconda
-  #       env:
-  #         ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
-  #       run: |
-  #         pkg=`ls noarch/mcvine-resources-*`
-  #         CONDA_USER="mcvine"
-  #         CONDA_LABEL="main"
-  #         if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
-  #           CONDA_LABEL="rc"
-  #         fi  
-  #         echo $pkg pushing with label $CONDA_LABEL
-  #         anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+  mcvine-resources-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-resources-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine-resources --output-folder .
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
+        run: |
+          pkg=`ls noarch/mcvine-resources-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
       
-  # mcvine-instruments-pkg:
-  #   needs: check-permission
-  #   runs-on: ubuntu-latest
-  #   if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-instruments-pkg == 'true' }} 
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: conda build mcvine.instruments --output-folder .
-  #     - name: Upload package to anaconda
-  #       env:
-  #         ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
-  #       run: |
-  #         pkg=`ls noarch/mcvine.instruments-*`
-  #         CONDA_USER="mcvine"
-  #         CONDA_LABEL="main"
-  #         if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
-  #           CONDA_LABEL="rc"
-  #         fi  
-  #         echo $pkg pushing with label $CONDA_LABEL
-  #         anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+  mcvine-instruments-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-instruments-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine.instruments --output-folder .
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
+        run: |
+          pkg=`ls noarch/mcvine.instruments-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
-  # mcvine-phonon-pkg:
-  #   needs: check-permission
-  #   runs-on: ubuntu-latest
-  #   if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-phonon-pkg == 'true' }} 
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: conda build mcvine.phonon --output-folder .
-  #     - name: Upload package to anaconda
-  #       env:
-  #         ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
-  #       run: |
-  #         pkg=`ls noarch/mcvine.phonon-*`
-  #         CONDA_USER="mcvine"
-  #         CONDA_LABEL="main"
-  #         if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
-  #           CONDA_LABEL="rc"
-  #         fi  
-  #         echo $pkg pushing with label $CONDA_LABEL
-  #         anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+  mcvine-phonon-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-phonon-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine.phonon --output-folder .
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
+        run: |
+          pkg=`ls noarch/mcvine.phonon-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
-  # mcvine-ui-pkg:
-  #   needs: check-permission
-  #   runs-on: ubuntu-latest
-  #   if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-ui-pkg == 'true' }} 
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: conda build mcvine.ui --output-folder .
-  #     - name: Upload package to anaconda
-  #       env:
-  #         ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
-  #       run: |
-  #         pkg=`ls noarch/mcvine.ui-*`
-  #         CONDA_USER="mcvine"
-  #         CONDA_LABEL="main"
-  #         if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
-  #           CONDA_LABEL="rc"
-  #         fi  
-  #         echo $pkg pushing with label $CONDA_LABEL
-  #         anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+  mcvine-ui-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-ui-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine.ui --output-folder .
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
+        run: |
+          pkg=`ls noarch/mcvine.ui-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
-  # mcvine-workflow-pkg:
-  #   needs: check-permission
-  #   runs-on: ubuntu-latest
-  #   if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-workflow-pkg == 'true' }} 
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: conda build mcvine.workflow --output-folder .
-  #     - name: Upload package to anaconda
-  #       env:
-  #         ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
-  #       run: |
-  #         pkg=`ls noarch/mcvine.workflow-*`
-  #         CONDA_USER="mcvine"
-  #         CONDA_LABEL="main"
-  #         if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
-  #           CONDA_LABEL="rc"
-  #         fi  
-  #         echo $pkg pushing with label $CONDA_LABEL
-  #         anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+  mcvine-workflow-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-workflow-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine.workflow --output-folder .
+      - name: Upload package to anaconda
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
+        run: |
+          pkg=`ls noarch/mcvine.workflow-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
-  # mcvine-pkg:
-  #   needs: check-permission
-  #   runs-on: ubuntu-latest
-  #   if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-pkg == 'true' }} 
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Micromamba    
-  #       uses: mamba-org/setup-micromamba@v2
-  #       with:
-  #         environment-file: shared_environment.yml
-  #         condarc: |
-  #           channels:
-  #           - neutrons
-  #           - mantid
-  #           - mcvine
-  #           - mcvine/label/rc
-  #           - conda-forge
-  #     - name: build_package
-  #       shell: bash -l {0}
-  #       run: conda build mcvine --output-folder .
-  #     - name: Upload package to anaconda
-  #       shell: bash -l {0}
-  #       env:
-  #         ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
-  #       run: |
-  #         pkg=`ls noarch/mcvine-[0-9]*`
-  #         CONDA_USER="mcvine"
-  #         CONDA_LABEL="main"
-  #         if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
-  #           CONDA_LABEL="rc"
-  #         fi  
-  #         echo $pkg pushing with label $CONDA_LABEL
-  #         anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+  mcvine-pkg:
+    needs: check-permission
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-pkg == 'true' }} 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Micromamba    
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: shared_environment.yml
+          condarc: |
+            channels:
+            - neutrons
+            - mantid
+            - mcvine
+            - mcvine/label/rc
+            - conda-forge
+      - name: build_package
+        shell: bash -l {0}
+        run: conda build mcvine --output-folder .
+      - name: Upload package to anaconda
+        shell: bash -l {0}
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
+        run: |
+          pkg=`ls noarch/mcvine-[0-9]*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
