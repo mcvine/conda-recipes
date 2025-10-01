@@ -56,7 +56,7 @@ jobs:
         id: branch_info
         shell: bash -l {0}
         run: |
-          echo "is_master=${{ github.ref != 'refs/heads/master'}}" >> $GITHUB_OUTPUT
+          echo "is_master=${{ github.ref == 'refs/heads/master'}}" >> $GITHUB_OUTPUT
       - name: Branch Access
         run: |
           if [ "${{ steps.branch_info.outputs.is_master }}" == "true" ]; then
@@ -94,7 +94,7 @@ jobs:
             exit 1
           fi  
         
-  mantid2mcvine-pkg-test:
+  mantid2mcvine-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
     if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mantid2mcvine-pkg == 'true' }} 
@@ -126,9 +126,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          conda list | grep anaconda
-          anaconda --help
-          anaconda upload --help
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   # mcvine-core-pkg:
   #   needs: check-permission
