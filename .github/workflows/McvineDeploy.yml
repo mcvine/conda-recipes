@@ -21,7 +21,7 @@ on:
         type: boolean
         default: false        
       run_mcvine-instruments-pkg:
-        description: 'Deploy mcvine-resources?'
+        description: 'Deploy mcvine.instruments?'
         required: false
         type: boolean
         default: false        
@@ -45,36 +45,59 @@ on:
         required: false
         type: boolean
         default: false        
-  pull_request:
-    branches:
-      - master
+
 jobs:
+  main-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      is_master: ${{ steps.branch_info.outputs.is_master }}
+    steps:
+      - name: Get branch info
+        id: branch_info
+        shell: bash -l {0}
+        run: |
+          echo "is_master=${{ github.ref == 'refs/heads/master'}}" >> $GITHUB_OUTPUT
+      - name: Branch Access
+        run: |
+          if [ "${{ steps.branch_info.outputs.is_master }}" == "true" ]; then
+            echo "Master Branch found!"
+          else
+            echo "Deploy workflow runs only on the master branch!"
+            exit 1
+          fi  
+        
   check-permission:
+    needs: main-branch
     runs-on: ubuntu-latest
     outputs:
       is_permitted: ${{ steps.permission.outputs.is_permitted }}
     steps:
-      - name: Get user mcvin-dev membership
+      - name: Get user mcvine-dev membership
         id: get_permission
         uses: tspascoal/get-user-teams-membership@v2
         with:
           GITHUB_TOKEN: ${{ secrets.TEAM_TOKEN }}
           username: ${{ github.actor }}
-          team: mcvine-dev
+          team: deploy
           organization: 'mcvine'
       - name: Set user membership status
         id: permission
         shell: bash -l {0}
         run: |
           echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
-      - name: Check if user has write access
-        if: ${{ steps.permission.outputs.is_permitted == 'true'}}
-        run: echo "User is member of the mcvine-dev team. Access granted for deploy!"
-
+      - name: User Access
+        run: |
+          if [ "${{ steps.permission.outputs.is_permitted }}" == "true" ]; then
+            echo "Access Granted for Deploy!"
+          else
+            echo "Access Denied!"
+            exit 1
+          fi  
+        
   mantid2mcvine-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mantid2mcvine-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mantid2mcvine-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -90,18 +113,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mantid2mcvine
+        run: conda build mantid2mcvine --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mantid2mcvine- with label mcvine
-          # anaconda upload
+          pkg=`ls noarch/mantid2mcvine-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-core-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-core-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-core-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -117,18 +146,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine-core
+        run: conda build mcvine-core --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine-core- with label mcvine
-          # anaconda upload
+          pkg=`ls linux-64/mcvine-core-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-resources-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-resources-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-resources-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -144,18 +179,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine-resources
+        run: conda build mcvine-resources --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine-resources- with label mcvine
-          # anaconda upload
+          pkg=`ls noarch/mcvine-resources-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
       
   mcvine-instruments-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-instruments-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-instruments-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -171,18 +212,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine.instruments
+        run: conda build mcvine.instruments --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine.instruments- with label mcvine
-          # anaconda upload
+          pkg=`ls noarch/mcvine.instruments-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-phonon-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-phonon-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-phonon-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -198,18 +245,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine.phonon
+        run: conda build mcvine.phonon --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine.phonon- with label mcvine
-          # anaconda upload
+          pkg=`ls noarch/mcvine.phonon-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-ui-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-ui-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-ui-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -225,18 +278,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine.ui
+        run: conda build mcvine.ui --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine.ui- with label mcvine
-          # anaconda upload
+          pkg=`ls noarch/mcvine.ui-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-workflow-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-workflow-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-workflow-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -252,18 +311,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine.workflow
+        run: conda build mcvine.workflow --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine.workflow- with label mcvine
-          # anaconda upload
+          pkg=`ls noarch/mcvine.workflow-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_mcvine-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_mcvine-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -279,15 +344,17 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build mcvine
+        run: conda build mcvine --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing mcvine- with label mcvine
-          # anaconda upload
-
-
-
-
-
+          pkg=`ls noarch/mcvine-[0-9]*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       run_danse-bpext-pkg:
-        description: 'Deploy bpext?'
+        description: 'Deploy danse.ins.bpext?'
         required: false
         type: boolean
         default: false        
@@ -16,7 +16,7 @@ on:
         type: boolean
         default: false        
       run_danse-dsm-pkg:
-        description: 'Deploy dsm?'
+        description: 'Deploy danse.ins.dsm?'
         required: false
         type: boolean
         default: false        
@@ -26,7 +26,7 @@ on:
         type: boolean
         default: false        
       run_danse-numpyext-pkg:
-        description: 'Deploy numpyext?'
+        description: 'Deploy danse.ins.numpyext?'
         required: false
         type: boolean
         default: false        
@@ -35,36 +35,59 @@ on:
         required: false
         type: boolean
         default: false        
-  pull_request:
-    branches:
-      - master
+
 jobs:
+  main-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      is_master: ${{ steps.branch_info.outputs.is_master }}
+    steps:
+      - name: Get branch info
+        id: branch_info
+        shell: bash -l {0}
+        run: |
+          echo "is_master=${{ github.ref == 'refs/heads/master'}}" >> $GITHUB_OUTPUT
+      - name: Branch Access
+        run: |
+          if [ "${{ steps.branch_info.outputs.is_master }}" == "true" ]; then
+            echo "Master Branch found!"
+          else
+            echo "Deploy workflow runs only on the master branch!"
+            exit 1
+          fi  
+        
   check-permission:
+    needs: main-branch
     runs-on: ubuntu-latest
     outputs:
       is_permitted: ${{ steps.permission.outputs.is_permitted }}
     steps:
-      - name: Get user mcvin-dev membership
+      - name: Get user mcvine-dev membership
         id: get_permission
         uses: tspascoal/get-user-teams-membership@v2
         with:
           GITHUB_TOKEN: ${{ secrets.TEAM_TOKEN }}
           username: ${{ github.actor }}
-          team: mcvine-dev
+          team: deploy
           organization: 'mcvine'
       - name: Set user membership status
         id: permission
         shell: bash -l {0}
         run: |
           echo "is_permitted=${{ steps.get_permission.outputs.isTeamMember == 'true'}}" >> $GITHUB_OUTPUT
-      - name: Check if user has write access
-        if: ${{ steps.permission.outputs.is_permitted == 'true'}}
-        run: echo "User is member of the mcvine-dev team. Access granted for deploy!"
+      - name: User Access
+        run: |
+          if [ "${{ steps.permission.outputs.is_permitted }}" == "true" ]; then
+            echo "Access Granted for Deploy!"
+          else
+            echo "Access Denied!"
+            exit 1
+          fi  
 
   danse-bpext-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-bpext-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true'  && github.event.inputs.run_danse-bpext-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -80,18 +103,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build danse/bpext
+        run: conda build danse/bpext --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing danse/bpext- with label mcvine
-          # anaconda upload
+          pkg=`ls linux-64/danse.ins.bpext-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   danse-ins-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-ins-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true'  && github.event.inputs.run_danse-ins-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -107,18 +136,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build danse/danse.ins
+        run: conda build danse/danse.ins --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing danse/danse.ins- with label mcvine
-          # anaconda upload
+          pkg=`ls noarch/danse.ins-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   danse-dsm-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-dsm-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_danse-dsm-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -135,18 +170,24 @@ jobs:
       - name: build_package
         shell: bash -l {0}
         run: |
-            conda build danse/dsm
+          conda build danse/dsm --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing danse/dsm- with label mcvine
-          # anaconda upload
+          pkg=`ls noarch/danse.ins.dsm-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   danse-journal-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-journal-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_danse-journal-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -162,18 +203,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build danse/journal
+        run: conda build danse/journal --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing danse/journal- with label mcvine
-          # anaconda upload
+          pkg=`ls linux-64/journal-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   danse-numpyext-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-numpyext-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_danse-numpyext-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -189,18 +236,24 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build danse/numpyext
+        run: conda build danse/numpyext --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing danse/journal- with label mcvine
-          # anaconda upload
+          pkg=`ls linux-64/danse.ins.numpyext-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
 
   danse-pyre-pkg:
     needs: check-permission
     runs-on: ubuntu-latest
-    if: ${{ needs.check-permission.outputs.is_permitted && github.event.inputs.run_danse-pyre-pkg == 'true' }} 
+    if: ${{ needs.check-permission.outputs.is_permitted == 'true' && github.event.inputs.run_danse-pyre-pkg == 'true' }} 
     steps:
       - uses: actions/checkout@v4
       - name: Micromamba    
@@ -216,10 +269,16 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: conda build danse/pyre
+        run: conda build danse/pyre --output-folder .
       - name: Upload package to anaconda
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          echo pushing danse/pyre- with label mcvine
-          # anaconda upload
+          pkg=`ls linux-64/pyre-*`
+          CONDA_USER="mcvine"
+          CONDA_LABEL="main"
+          if [[ $pkg =~ ([0-9]+rc[0-9]+) ]]; then
+            CONDA_LABEL="rc"
+          fi  
+          echo $pkg pushing with label $CONDA_LABEL
+          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
