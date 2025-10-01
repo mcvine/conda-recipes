@@ -126,7 +126,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          conda list
+          conda list | grep anaconda
           anaconda --help
           anaconda upload --help
 
