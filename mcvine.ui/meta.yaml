@@ -1,6 +1,6 @@
 package:
   name: mcvine.ui
-  version: "0.0.3rc1"
+  version: "0.0.3"
 
 source:
   #no change in the source code, we point directly to a specific commit (head of master - v0.0.2)
