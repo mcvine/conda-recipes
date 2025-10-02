@@ -126,7 +126,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+          anaconda upload --label $CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-core-pkg:
     needs: check-permission
@@ -160,7 +160,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+          anaconda upload --label $CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-resources-pkg:
     needs: check-permission
@@ -194,7 +194,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+          anaconda upload --label $CONDA_LABEL --user $CONDA_USER $pkg
       
   mcvine-instruments-pkg:
     needs: check-permission
@@ -228,7 +228,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+          anaconda upload --label $CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-phonon-pkg:
     needs: check-permission
@@ -262,7 +262,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+          anaconda upload --label $CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-ui-pkg:
     needs: check-permission
@@ -296,7 +296,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+          anaconda upload --label $CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-workflow-pkg:
     needs: check-permission
@@ -330,7 +330,7 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+          anaconda upload --label $CONDA_LABEL --user $CONDA_USER $pkg
 
   mcvine-pkg:
     needs: check-permission
@@ -364,4 +364,4 @@ jobs:
             CONDA_LABEL="rc"
           fi  
           echo $pkg pushing with label $CONDA_LABEL
-          anaconda upload --label CONDA_LABEL --user $CONDA_USER $pkg
+          anaconda upload --label $CONDA_LABEL --user $CONDA_USER $pkg
