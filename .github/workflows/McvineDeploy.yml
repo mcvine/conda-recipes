@@ -115,8 +115,9 @@ jobs:
         shell: bash -l {0}
         run: conda build mantid2mcvine --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls noarch/mantid2mcvine-*`
           CONDA_USER="mcvine"
@@ -148,8 +149,9 @@ jobs:
         shell: bash -l {0}
         run: conda build mcvine-core --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls linux-64/mcvine-core-*`
           CONDA_USER="mcvine"
@@ -181,8 +183,9 @@ jobs:
         shell: bash -l {0}
         run: conda build mcvine-resources --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls noarch/mcvine-resources-*`
           CONDA_USER="mcvine"
@@ -214,8 +217,9 @@ jobs:
         shell: bash -l {0}
         run: conda build mcvine.instruments --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls noarch/mcvine.instruments-*`
           CONDA_USER="mcvine"
@@ -247,8 +251,9 @@ jobs:
         shell: bash -l {0}
         run: conda build mcvine.phonon --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls noarch/mcvine.phonon-*`
           CONDA_USER="mcvine"
@@ -280,8 +285,9 @@ jobs:
         shell: bash -l {0}
         run: conda build mcvine.ui --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls noarch/mcvine.ui-*`
           CONDA_USER="mcvine"
@@ -313,8 +319,9 @@ jobs:
         shell: bash -l {0}
         run: conda build mcvine.workflow --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls noarch/mcvine.workflow-*`
           CONDA_USER="mcvine"
@@ -348,7 +355,7 @@ jobs:
       - name: Upload package to anaconda
         shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls noarch/mcvine-[0-9]*`
           CONDA_USER="mcvine"

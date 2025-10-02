@@ -105,8 +105,9 @@ jobs:
         shell: bash -l {0}
         run: conda build danse/bpext --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls linux-64/danse.ins.bpext-*`
           CONDA_USER="mcvine"
@@ -138,8 +139,9 @@ jobs:
         shell: bash -l {0}
         run: conda build danse/danse.ins --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls noarch/danse.ins-*`
           CONDA_USER="mcvine"
@@ -169,11 +171,11 @@ jobs:
             - conda-forge
       - name: build_package
         shell: bash -l {0}
-        run: |
-          conda build danse/dsm --output-folder .
+        run: conda build danse/dsm --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls noarch/danse.ins.dsm-*`
           CONDA_USER="mcvine"
@@ -205,8 +207,9 @@ jobs:
         shell: bash -l {0}
         run: conda build danse/journal --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls linux-64/journal-*`
           CONDA_USER="mcvine"
@@ -238,8 +241,9 @@ jobs:
         shell: bash -l {0}
         run: conda build danse/numpyext --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls linux-64/danse.ins.numpyext-*`
           CONDA_USER="mcvine"
@@ -271,8 +275,9 @@ jobs:
         shell: bash -l {0}
         run: conda build danse/pyre --output-folder .
       - name: Upload package to anaconda
+        shell: bash -l {0}
         env:
-          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_API_TOKEN }}
         run: |
           pkg=`ls linux-64/pyre-*`
           CONDA_USER="mcvine"
